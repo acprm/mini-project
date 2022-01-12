@@ -1,4 +1,5 @@
 import React from "react";
+import PokeMoveType from './PokeMoveType'
 
 interface PokemonCardProps{
     pokeTypes: string[];
@@ -8,15 +9,12 @@ interface PokemonCardProps{
 
 class PokemonCard extends React.Component<PokemonCardProps>{
    
+
     render(): React.ReactNode {
+        
 
         const list = () => this.props.pokeTypes.map((pokeType, idx) => {
-            console.log(pokeType);
-            return(
-                <div key={idx} className={`px-4 py-2 w-36 bg-${pokeType} rounded-3xl text-center text-xl font-semibold`}>
-                    {pokeType}
-                </div>
-            )
+            return <PokeMoveType type={pokeType} key={idx} />
         })
 
         const typeLen = this.props.pokeTypes.length;

@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize:{
+        xxs: '.5625rem'
+      },
       colors: {
         'main-red': '#DE3838',
         'light-gray': '#EBEBEB',
