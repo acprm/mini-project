@@ -1,0 +1,29 @@
+.progress-low::-moz-progress-bar {
+    --tw-bg-opacity: 1;
+    background-color: #DE3838;
+}
+
+.progress-medium::-moz-progress-bar {
+    --tw-bg-opacity: 1;
+    background-color: #FBC34D;
+}
+
+.progress-high::-moz-progress-bar {
+    --tw-bg-opacity: 1;
+    background-color: #74D76A;
+}
+
+.progress-low::-webkit-progress-value {
+    --tw-bg-opacity: 1;
+    background-color: #DE3838;
+}
+
+.progress-medium::-webkit-progress-value {
+    --tw-bg-opacity: 1;
+    background-color: #FBC34D;
+}
+
+.progress-high::-webkit-progress-value {
+    --tw-bg-opacity: 1;
+    background-color: #74D76A;
+}
