@@ -37,9 +37,11 @@ export default class PokeMoveType extends React.Component<PokeMoveTypeProps>{
         let renderType = this.props.type[0].toUpperCase() + this.props.type.slice(1)
 
         return(
-            <div className={`${!this.props.large ? 'w-16 text-xxs' : 'w-36 text-xl py-2'} px-4 rounded-3xl text-center text-white font-semibold ${bgType[this.props.type]}`}>
-                {renderType}
-            </div>
+            <a href={`/type/${this.props.type}`}>
+                <div className={`${!this.props.large ? 'w-16 text-xxs' : 'w-36 text-xl py-2'} px-4 rounded-3xl text-center text-white font-semibold ${bgType[this.props.type]}`}>
+                        {renderType}
+                </div>
+            </a>
         )
     }
 }
