@@ -1,4 +1,4 @@
-type PokemonStat = {
+export type PokemonStat = {
     statName: string,
     baseStat: number,
     maxStat: number,

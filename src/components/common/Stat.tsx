@@ -1,4 +1,5 @@
 import "./Stat.css"
+import {PokemonStat} from '../../type.d'
 
 const Stat = (props: PokemonStat) => {
     const percentage = props.baseStat / props.maxStat
