@@ -1,7 +1,7 @@
 import React from "react";
 import { favorites } from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
-
+import List from '../components/common/List'
 interface HomeProps {
 }
 
@@ -71,6 +71,9 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
                 <div className="font-semibold text-4xl mb-5">Pokemon</div>
                 <div className="flex flex-col gap-5">
                     {renderPokemon()}
+                </div>
+                <div className="w-full">
+                    <List item='Venusaur' types={['fire','grass']} />
                 </div>
             </div>
         )
