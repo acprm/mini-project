@@ -2019,5 +2019,4 @@ const Type = [
     { type: 'type', id: 18, name: 'Fairy' }
 ]
 
-const KeyWord = [...Pokemon, ...Move, ...Ability, ...Type]
-console.log(KeyWord)
+export const KeyWord = [...Pokemon, ...Move, ...Ability, ...Type]
