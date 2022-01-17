@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
 import Stat from "../common/Stat";
+import {PokemonStat} from "../../type";
 
 // Still use hard-coded (dummy-data)
 // TODO 1. define props type to be inserted as the Stat property
