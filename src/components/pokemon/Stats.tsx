@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import {PokemonStat} from "../../type";
 import Stat from "../common/Stat";
 
 // Still use hard-coded (dummy-data)
