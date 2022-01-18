@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'pokeball': "url('/pokeball.svg')",
+        'pokeball-full': "url('/pokeball-full.svg')",
+      },
       fontSize:{
         xxs: '.5625rem'
       },

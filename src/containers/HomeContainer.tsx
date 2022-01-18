@@ -1,7 +1,7 @@
 import React from "react";
 import { favorites } from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
-import List from '../components/common/List'
+import {pokemonDummy} from '../helpers/dummy';
 interface HomeProps {
 }
 
@@ -45,13 +45,9 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
     }
 
     render(): React.ReactNode {
-        const arr = [
-            {name:'charizard', imgUrl:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png', url:'https://pokeapi.co/api/v2/pokemon/charizard', type: ['fire', 'flying']},
-            {name: 'wartortle', imgUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png', url:'https://pokeapi.co/api/v2/pokemon/wartortle', type:['water']},
-            {name: 'articuno', imgUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png', url:'https://pokeapi.co/api/v2/pokemon/articuno', type:['ice','flying']}
-        ]
+        const dummies = pokemonDummy;
 
-        const renderPokemon = () => arr && arr.map((item)=>{
+        const renderPokemon = () => dummies && dummies.map((item)=>{
                 const fav = this.checkIfFavorite(item.name)
                 return (
                 <PokemonCard
@@ -67,13 +63,10 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
         )
 
         return(
-            <div className="container mx-auto flex flex-col items-center justify-center pt-5">
+            <div className="flex flex-col items-center justify-center pt-5">
                 <div className="font-semibold text-4xl mb-5">Pokemon</div>
                 <div className="flex flex-col gap-5">
                     {renderPokemon()}
-                </div>
-                <div className="w-full">
-                    <List item='Venusaur' types={['fire','grass']} />
                 </div>
             </div>
         )

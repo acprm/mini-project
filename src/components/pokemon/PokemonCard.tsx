@@ -25,7 +25,7 @@ class PokemonCard extends React.Component<PokemonCardProps>{
 
         const typeLen = this.props.pokeTypes.length;
         return(
-            <div className="px-8 py-4 shadow-lg rounded-3xl w-96">
+            <div className="px-8 py-4 shadow-lg rounded-3xl w-96 bg-white">
                 <div className="flex flex-col items-center gap-5">
                     <div className="flex justify-between items-center w-full">
                         <a href={`/pokemon/${this.props.pokeName}`}>
