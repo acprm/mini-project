@@ -1,16 +1,22 @@
-import {Component} from "react";
+import {ChangeEvent, Component} from "react";
 import {MdSearch} from "react-icons/md"
 
-class SearchBox extends Component<any, any> {
-    state = {term: ""}
+interface SearchBoxProps {
+    term: string
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+
+class SearchBox extends Component<SearchBoxProps> {
+
 
     render() {
         return (
             <div className="relative text-dark-gray block">
                 <input
                     className="peer form-input w-full py-3 px-6 rounded-full bg-light-gray focus:outline-main-red focus:bg-white focus:text-black"
-                    onChange={e => this.setState({term: e.target.value})}
-                    value={this.state.term}
+                    onChange={this.props.onChange}
+                    value={this.props.term}
                     placeholder="Search here..."
                 />
                 <MdSearch
