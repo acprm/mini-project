@@ -1,5 +1,5 @@
 import React from "react";
-import Background from './Background'
+import SearchBox from './SearchBox'
 
 interface HeaderProps{
     back:boolean;
@@ -15,7 +15,7 @@ export default class Header extends React.Component<HeaderProps>{
 
     render(): React.ReactNode {
         return(
-            <div className="flex justify-center gap-8 py-5">
+            <div className="flex justify-center items-center gap-8 py-5">
                 
                 {this.props.back ? (
                     <a href="/">
@@ -27,7 +27,7 @@ export default class Header extends React.Component<HeaderProps>{
                 }            
                 
 
-                <div className="rounded-xl bg-red-500 bg-opacity-80 w-64 h-5" />
+                <SearchBox />
                 <div className="cursor-pointer">
                     {this.props.favorite && <img src="/heart-outline.svg" alt="Favorite" />}
                     {!this.props.favorite && <img src="/menu.svg" alt="Menu" />}
