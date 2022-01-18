@@ -18,7 +18,7 @@ class SearchContainer extends Component<any, any> {
         return filtered.map(({name, type, id}) => {
             return (
                 <div key={`${type}-${id}`} className="px-6 hover:bg-light-gray rounded-full">
-                    <Link to={`${type}/${id}`}>
+                    <Link to={`/${type}/${id}`}>
                         <div className="flex justify-between py-3">
                             <span className="font-bold">{name}</span>
                             <span className="text-dark-gray">{capitalizeSingle(type)}</span>
