@@ -1,12 +1,9 @@
-import {ChangeEvent, Component} from "react";
+import React, {ChangeEvent, Component} from "react";
 import {Link} from "react-router-dom";
-
-
-import SearchBox from "../components/common/SearchBox";
 import {KeyWord} from "../KeyWord";
 import {capitalizeSingle} from "../helpers/capitalize"
+import Header from "../components/common/Header";
 
-// TODO 1. Create Close Toggle Button
 
 class SearchContainer extends Component<any, any> {
     state = {term: ""}
@@ -35,12 +32,11 @@ class SearchContainer extends Component<any, any> {
 
     render() {
         return (
-            <div className="container mx-auto mt-10">
-                <SearchBox
-                    term={this.state.term}
-                    onChange={this.handleChange}
-                    inputClass="bg-white border-2 border-main-red"
-                    iconClass="text-main-red"
+            <div className="container mx-auto">
+                <Header
+                    searchTerm={this.props.term}
+                    searchHandler={this.handleChange}
+                    searchActive={true}
                 />
                 {this.renderSuggestion()}
             </div>
