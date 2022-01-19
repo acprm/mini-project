@@ -14,7 +14,6 @@ class PokemonCard extends React.Component<PokemonCardProps>{
 
     render(): React.ReactNode {
         
-
         const renderType = () => this.props.pokeTypes.map((pokeType, idx) => {
             return <PokeMoveType type={pokeType} key={idx} />
         })
@@ -25,7 +24,7 @@ class PokemonCard extends React.Component<PokemonCardProps>{
 
         const typeLen = this.props.pokeTypes.length;
         return(
-            <div className="px-8 py-4 shadow-lg rounded-3xl w-96 bg-white">
+            <div className="px-8 py-4 shadow-lg rounded-3xl w-full bg-white">
                 <div className="flex flex-col items-center gap-5">
                     <div className="flex justify-between items-center w-full">
                         <a href={`/pokemon/${this.props.pokeName}`}>

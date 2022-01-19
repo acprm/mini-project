@@ -2,14 +2,19 @@ import React from "react";
 import { favorites } from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {pokemonDummy} from '../helpers/dummy';
+import { addPokemonList, clearPokemonList} from '../redux/reducers/pokemon'
+import {RootState} from '../redux/store'
+import {connect} from 'react-redux'
+
 interface HomeProps {
+    pokemons: {}[];
 }
 
 interface HomeState {
     favs: Array<string>
 }
 
-export default class HomeContainer extends React.Component<HomeProps, HomeState>{
+class HomeContainer extends React.Component<HomeProps, HomeState>{
     constructor(props: HomeProps){
         super(props);
 
@@ -46,11 +51,12 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
 
     render(): React.ReactNode {
         const dummies = pokemonDummy;
-
-        const renderPokemon = () => dummies && dummies.map((item)=>{
+        console.log(this.props);
+        const renderPokemon = () => dummies && dummies.map((item,idx)=>{
                 const fav = this.checkIfFavorite(item.name)
                 return (
                 <PokemonCard
+                    key={idx}
                     pokeName={item.name}
                     imgUrl={item.imgUrl}
                     url={item.url}
@@ -63,9 +69,9 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
         )
 
         return(
-            <div className="flex flex-col items-center justify-center pt-5">
+            <div className="flex flex-col items-center justify-center pt-5 border">
                 <div className="font-semibold text-4xl mb-5">Pokemon</div>
-                <div className="flex flex-col gap-5">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 border p-5">
                     {renderPokemon()}
                 </div>
             </div>
@@ -73,3 +79,17 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
     }
 
 }
+
+const mapStateToProps = (state: RootState, prop:any ) =>{
+    const {pokemon} = state;
+    return { pokemons: pokemon.pokemons }
+}
+
+const mapDispatchToProps = (dispatch:any) =>{
+    return{
+        addPokemonList: ()=> dispatch(addPokemonList),
+        clearPokemonList: ()=> dispatch(clearPokemonList)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

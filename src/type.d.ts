@@ -3,3 +3,7 @@ export type PokemonStat = {
     baseStat: number,
     maxStat: number,
 }
+
+export interface PokemonState{
+    pokemons: {}[]
+}
