@@ -4,6 +4,7 @@ import RouteDisplay from './components/RouteDisplay'
 import Home from './views/Home'
 import PokemonDetail from './views/PokemonDetail'
 import MoveDetail from './views/MoveDetail'
+import AbilityDetail from './views/AbilityDetail'
 import SearchContainer from "./containers/SearchContainer";
 
 
@@ -15,7 +16,7 @@ class App extends React.Component {
             <Route path="/" element={<Home/>}/>
             <Route path="/search" element={<SearchContainer/>}/>
             <Route path="/favorites" element={<RouteDisplay path='Favorites'/>}/>
-            <Route path="/ability" element={<RouteDisplay path='Ability Details'/>}/>
+            <Route path="/ability" element={<AbilityDetail />}/>
             <Route path="/pokemon" element={<PokemonDetail />}/>
             <Route path="/move" element={<MoveDetail/>}/>
             <Route path="/type" element={<RouteDisplay path='Type Details'/>}/>
