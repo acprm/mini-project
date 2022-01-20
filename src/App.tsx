@@ -3,7 +3,8 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import RouteDisplay from './components/RouteDisplay'
 import Home from './views/Home'
 import {Provider} from 'react-redux';
-import store from './redux/store'
+import {store} from './redux/store'
+
 
 class App extends React.Component {
     render() {

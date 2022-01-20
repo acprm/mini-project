@@ -7,23 +7,29 @@ import {TypeDetail} from "../reducers/typesSlice";
 import {MoveDetail} from "../reducers/movesSlice";
 import {AbilityDetail} from "../reducers/abilitiesSlice";
 
-export const getData = async (type: DataType, id: number, lastId?: number, limit?: number) => {
+export const getData = async (type: DataType, id: number | number[], lastId?: number, limit?: number) => {
     // Create a list of id that will be used as parameter when fetching PokeAPI data
-    let idList: { id: number }[] = []
+    let idList: number[] = []
     const url = `https://pokeapi.co/api/v2/${type}/`
 
-    // Use lastId if it exists else only put one item to the idList
-    if (lastId) {
-        for (let i = id; i <= lastId; i++) {
-            idList.push({id: i})
+    if (typeof id === "number") {
+
+        // Use lastId if it exists else only put one item to the idList
+        if (lastId) {
+            for (let i = id; i <= lastId; i++) {
+                idList.push(i)
+            }
+        } else {
+            idList.push(id)
         }
-    } else {
-        idList.push({id: id})
+    }
+    else {
+        idList = [...id]
     }
 
 
     // Fetch the data using Promise.all and axios get
-    const responses = await Promise.all(idList.map(({id}) => axios.get(`${url}${id}`)))
+    const responses = await Promise.all(idList.map((id) => axios.get(`${url}${id}`)))
     const results = responses.map(res => {
         const data = res.data
         return transformData(type, data)
@@ -65,8 +71,6 @@ const transformData = (type: DataType, data: any) => {
     }
     if (type === "type") {
         const damageRel = data.damage_relations
-        console.log(damageRel)
-        console.log(typeof damageRel)
         const transformedData: TypeDetail = {
             id: data.id,
             name: Type.filter(type => type.id === data.id)[0].name || data.name,

@@ -1,15 +1,18 @@
 // import { combineReducers, createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { pokemonSlice } from './reducers/pokemonSlice';
+import pokemonReducer from './reducers/pokemonSlice';
+import typesReducer from "./reducers/typesSlice";
+import abilitiesReducer from "./reducers/abilitiesSlice"
+import movesReducer from "./reducers/movesSlice"
 
-const store = configureStore({
+export const store = configureStore({
     reducer:{
-        pokemon: pokemonSlice.reducer
+        pokemon: pokemonReducer,
+        types: typesReducer,
+        abilities: abilitiesReducer,
+        moves: movesReducer,
     }
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-
-export const selectPokemon = (state:RootState)=> state.pokemon.list;
-
-export default store
+export type AppDispatch = typeof store.dispatch

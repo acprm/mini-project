@@ -1,5 +1,6 @@
 import {DataMin, Status} from "../../type";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {getData} from "../api/getData";
 
 // Minimum Data for Pokemon
 export interface PokemonMin extends DataMin {
@@ -29,25 +30,37 @@ const initialState: PokemonState = {
     status: "idle"
 }
 
+export const fetchPokemon = createAsyncThunk(
+    'pokemon/fetchPokemon',
+    async ({id, lastId, limit}: { id: number | number[], lastId?: number, limit?: number }) => {
+        const result = await getData("pokemon", id, lastId, limit)
+        return result as unknown as PokemonDetail[]
+    }
+)
+
+
 export const pokemonSlice = createSlice({
-    name: 'pokemon',
-    initialState,
-    reducers:{
-
-            clearPokemonList(state: PokemonState){
-                Object.assign(state, {
-                    ...state,
-                    pokemons:[]
+        name: 'pokemon',
+        initialState,
+        reducers: {},
+        extraReducers: builder => {
+            builder
+                .addCase(fetchPokemon.pending, (state) => {
+                    state.status = "loading"
                 })
-            },
+                .addCase(fetchPokemon.fulfilled, (state, {payload}) => {
+                    const newState: PokemonState = {
+                        list: payload,
+                        status: "idle"
+                    }
 
-            addPokemonList(state: PokemonState, action: PayloadAction<Object>){
-                Object.assign(state, {
-                    ...state,
+                    return newState
                 })
-            }
+                .addCase(fetchPokemon.rejected, state => {
+                    state.status = "failed"
+                })
         }
     }
 )
 
-export const {clearPokemonList, addPokemonList} = pokemonSlice.actions
+export default pokemonSlice.reducer
