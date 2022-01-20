@@ -9,12 +9,13 @@ interface ListProps{
 
 export default class List extends React.Component<ListProps>{
     static defaultProps = {
-        imgUrl: ''
+        imgUrl: '',
+        types: []
     }
 
     render(): React.ReactNode {
 
-        const renderType = () => this.props.types.map((itemType, idx) => {
+        const renderType = () => this.props.types && this.props.types.map((itemType, idx) => {
             return <PokeMoveType type={itemType} key={idx} large={false} />
         })
 

@@ -2,7 +2,9 @@ import React from "react";
 import { favorites } from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {pokemonDummy} from '../helpers/dummy';
+
 interface HomeProps {
+    pokemons: {}[];
 }
 
 interface HomeState {
@@ -46,11 +48,12 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
 
     render(): React.ReactNode {
         const dummies = pokemonDummy;
-
-        const renderPokemon = () => dummies && dummies.map((item)=>{
+        console.log(this.props);
+        const renderPokemon = () => dummies && dummies.map((item,idx)=>{
                 const fav = this.checkIfFavorite(item.name)
                 return (
                 <PokemonCard
+                    key={idx}
                     pokeName={item.name}
                     imgUrl={item.imgUrl}
                     url={item.url}
@@ -65,7 +68,7 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
         return(
             <div className="flex flex-col items-center justify-center pt-5">
                 <div className="font-semibold text-4xl mb-5">Pokemon</div>
-                <div className="flex flex-col gap-5">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5">
                     {renderPokemon()}
                 </div>
             </div>
