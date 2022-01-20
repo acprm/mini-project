@@ -1,7 +1,9 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 interface PokeMoveTypeProps{
     type:string;
+    id:number;
     large:boolean
 }
 
@@ -37,11 +39,11 @@ export default class PokeMoveType extends React.Component<PokeMoveTypeProps>{
         let renderType = this.props.type[0].toUpperCase() + this.props.type.slice(1)
 
         return(
-            <a href={`/type/${this.props.type}`}>
+            <Link to={`/type/${this.props.id}`}>
                 <div className={`${!this.props.large ? 'w-16 text-xxs' : 'w-32 text-xl py-2'} px-4 rounded-3xl text-center text-white font-semibold ${bgType[this.props.type]}`}>
                         {renderType}
                 </div>
-            </a>
+            </Link>
         )
     }
 }

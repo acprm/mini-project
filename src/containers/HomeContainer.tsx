@@ -60,6 +60,7 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
                     favorite={fav}
                     pokeTypes={item.type}
                     onHeartClick={()=>this.handleHeartClick(item.name, fav)}
+                    id={item.id}
                 />
                 )
             }

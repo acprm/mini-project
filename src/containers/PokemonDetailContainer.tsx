@@ -12,11 +12,11 @@ export interface Props {
     
 }
  
-export interface State {
+export interface PokemonDetailState {
     activeTab: number
 }
  
-class PokemonDetailContainer extends React.PureComponent<Props, State> {
+class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> {
     state = { activeTab: 1 }
 
     renderPokemon(){
@@ -31,7 +31,9 @@ class PokemonDetailContainer extends React.PureComponent<Props, State> {
                     {<div className={`flex ${pokemonDummy[0].type.length === 1 ? 'justify-center' : 'justify-center'} gap-5 w-1/2`}>
                         {pokemonDummy[0].type.map((item, idx)=>{
                             return(
-                                <PokeMoveType type={item} key={idx} />
+                                <div key={idx}>
+                                    <PokeMoveType type={item} id={1} />
+                                </div>
                             )
                         })}
                     </div>}
@@ -49,7 +51,7 @@ class PokemonDetailContainer extends React.PureComponent<Props, State> {
             <div className='flex flex-col gap-5'>
                 <this.renderPokemon/>
 
-                <TabContainer>
+                <TabContainer large={false}>
                     <div className='flex justify-center content-center items-center gap-8'>
                         <Tab name='Stats' active={this.state.activeTab === 1 ? true : false} onClick={() => this.handleOnTabClick(1)}/>
                         <Tab name='Moves' active={this.state.activeTab === 2 ? true : false} onClick={() => this.handleOnTabClick(2)}/>
@@ -58,7 +60,7 @@ class PokemonDetailContainer extends React.PureComponent<Props, State> {
                     </div>
 
                     {/* Stats */}
-                    <div className={this.state.activeTab !== 1 ? 'hidden' : 'inline-block'}>
+                    <div className={this.state.activeTab !== 1 ? 'hidden' : 'mt-16 inline-block'}>
                         <Stats/>
                     </div>
 
@@ -66,10 +68,10 @@ class PokemonDetailContainer extends React.PureComponent<Props, State> {
                     <div className={`${this.state.activeTab !== 2 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
                         {moveDummy && moveDummy.map((item,idx)=>
                             (
-                                <>
+                                <div key={idx}>
                                     <hr className='my-4' />
-                                    <List item={item.name} types={item.types} key={idx} />
-                                </>
+                                    <List item={item.name} types={item.types} id={item.id} category='move'/>
+                                </div>
                             )
                         )}
                     </div>
@@ -78,10 +80,10 @@ class PokemonDetailContainer extends React.PureComponent<Props, State> {
                     <div className={`${this.state.activeTab !== 3 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
                         {abilityDummy && abilityDummy.map((item,idx)=>
                             (
-                                <>
+                                <div key={idx}>
                                     <hr className='my-4' />
-                                    <List item={item.name} key={idx} />
-                                </>
+                                    <List item={item.name} id={item.id} category='ability' />
+                                </div>
                             )
                         )}
                     </div>
