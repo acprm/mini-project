@@ -1,6 +1,6 @@
 // import { combineReducers, createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { pokemonSlice } from './reducers/pokemon';
+import { pokemonSlice } from './reducers/pokemonSlice';
 
 const store = configureStore({
     reducer:{
@@ -10,6 +10,6 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export const selectPokemon = (state:RootState)=> state.pokemon.pokemons;
+export const selectPokemon = (state:RootState)=> state.pokemon.list;
 
 export default store

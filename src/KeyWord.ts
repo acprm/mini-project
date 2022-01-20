@@ -1,4 +1,4 @@
-const Pokemon = [
+export const Pokemon = [
     { type: 'pokemon', id: 1, name: 'Bulbasaur' },
     { type: 'pokemon', id: 2, name: 'Ivysaur' },
     { type: 'pokemon', id: 3, name: 'Venusaur' },
@@ -899,7 +899,7 @@ const Pokemon = [
     { type: 'pokemon', id: 898, name: 'Calyrex' },
 ]
 
-const Move = [
+export const Move = [
     { type: 'move', id: 1, name: 'Pound' },
     { type: 'move', id: 2, name: 'Karate Chop' },
     { type: 'move', id: 3, name: 'Double Slap' },
@@ -1728,7 +1728,7 @@ const Move = [
     { type: 'move', id: 826, name: 'Eerie Spell' }
 ]
 
-const Ability = [
+export const Ability = [
     { type: 'ability', id: 1, name: 'Stench' },
     { type: 'ability', id: 2, name: 'Drizzle' },
     { type: 'ability', id: 3, name: 'Speed Boost' },
@@ -1998,7 +1998,7 @@ const Ability = [
     { type: 'ability', id: 267, name: 'As One' }
 ]
 
-const Type = [
+export const Type = [
     { type: 'type', id: 1, name: 'Normal' },
     { type: 'type', id: 2, name: 'Fighting' },
     { type: 'type', id: 3, name: 'Flying' },

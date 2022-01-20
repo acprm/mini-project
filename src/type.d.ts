@@ -1,9 +1,8 @@
-export type PokemonStat = {
-    statName: string,
-    baseStat: number,
-    maxStat: number,
+export interface DataMin {
+    id: number
+    name: string
 }
 
-export interface PokemonState{
-    pokemons: {}[]
-}
+export type Status = "idle" | "loading" | "failed"
+
+export type DataType = "pokemon" | "move" | "ability" | "type"

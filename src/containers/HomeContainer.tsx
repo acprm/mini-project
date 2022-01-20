@@ -2,7 +2,7 @@ import React from "react";
 import { favorites } from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {pokemonDummy} from '../helpers/dummy';
-import { addPokemonList, clearPokemonList} from '../redux/reducers/pokemon'
+import { addPokemonList, clearPokemonList} from '../redux/reducers/pokemonSlice'
 import {RootState} from '../redux/store'
 import {connect} from 'react-redux'
 
@@ -82,7 +82,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState>{
 
 const mapStateToProps = (state: RootState, prop:any ) =>{
     const {pokemon} = state;
-    return { pokemons: pokemon.pokemons }
+    return { pokemons: pokemon.list }
 }
 
 const mapDispatchToProps = (dispatch:any) =>{
