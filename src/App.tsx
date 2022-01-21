@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {Provider} from 'react-redux';
 import {store} from './redux/store'
 
@@ -8,6 +8,7 @@ import RouteDisplay from './components/RouteDisplay'
 import PokemonDetail from './views/PokemonDetail'
 import MoveDetail from './views/MoveDetail'
 import AbilityDetail from './views/AbilityDetail'
+import TypeDetail from './views/TypeDetail'
 import SearchContainer from "./containers/SearchContainer";
 
 
@@ -16,15 +17,35 @@ class App extends React.Component {
         return (
             <Provider store={store}>
                 <Router>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/search" element={<SearchContainer/>}/>
-                        <Route path="/favorites" element={<RouteDisplay path='Favorites'/>}/>
-                        <Route path="/ability" element={<AbilityDetail/>}/>
-                        <Route path="/pokemon" element={<PokemonDetail/>}/>
-                        <Route path="/move" element={<MoveDetail/>}/>
-                        <Route path="/type" element={<RouteDisplay path='Type Details'/>}/>
-                    </Routes>
+                    <Switch>
+                        <Route exact path="/">
+                            <Home/>
+                        </Route>
+
+                        <Route exact path="/search">
+                            <SearchContainer/>
+                        </Route>
+                        
+                        <Route exact path="/favorites">
+                            <RouteDisplay path='Favorites'/>
+                        </Route>
+                        
+                        <Route exact path="/ability/:id">
+                            <AbilityDetail/>
+                        </Route>
+
+                        <Route exact path="/pokemon/:id">
+                            <PokemonDetail/>
+                        </Route>
+
+                        <Route exact path="/move/:id">
+                            <MoveDetail/>
+                        </Route>
+
+                        <Route exact path="/type/:id">
+                            <TypeDetail/>
+                        </Route>
+                    </Switch>
                 </Router>
             </Provider>
         )

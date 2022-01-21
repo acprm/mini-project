@@ -4,7 +4,10 @@ import Tab from '../components/common/Tab'
 import {moveDummy, pokemonDummy} from '../helpers/dummy'
 import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
-interface Props {
+import { withRouter, RouteComponentProps } from 'react-router';
+import {PathParamsType} from '../type'
+
+type Props = RouteComponentProps<PathParamsType> & {
     
 }
  
@@ -14,6 +17,13 @@ interface MoveDetailState {
  
 class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
     state = { activeTab: 1  }
+    
+    componentDidMount(){
+        // use this to log param 
+        console.log(this.props.match.params.id);
+        
+    }
+
     renderMove(){
         return(
             <div className='p-5 flex flex-col'>
@@ -40,7 +50,7 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
                 <TabContainer large={true}>
                     <div className='flex justify-center content-center items-center gap-8'>
                         <Tab name='Detail' active={this.state.activeTab === 1 ? true : false} onClick={() => this.handleOnTabClick(1)}/>
-                        <Tab name='Pokemons' active={this.state.activeTab === 2 ? true : false} onClick={() => this.handleOnTabClick(2)}/>
+                        <Tab name='Pokemon' active={this.state.activeTab === 2 ? true : false} onClick={() => this.handleOnTabClick(2)}/>
                     </div>
 
                     {/* Details */}
@@ -83,4 +93,4 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
     }
 }
  
-export default MoveDetailContainer;
+export default withRouter(MoveDetailContainer);

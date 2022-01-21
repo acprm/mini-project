@@ -7,8 +7,10 @@ import Comment from '../components/comment/Comment';
 import CommentForm from '../components/comment/CommentForm';
 import { abilityDummy, moveDummy, pokemonDummy } from '../helpers/dummy';
 import PokeMoveType from '../components/common/PokeMoveType';
+import {PathParamsType} from '../type'
+import {withRouter, RouteComponentProps} from 'react-router'
 
-export interface Props {
+type Props = RouteComponentProps<PathParamsType> & {
     
 }
  
@@ -18,6 +20,12 @@ export interface PokemonDetailState {
  
 class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> {
     state = { activeTab: 1 }
+
+    componentDidMount(){
+        // use this to log param 
+        console.log(this.props.match.params.id);
+        
+    }
 
     renderPokemon(){
         return(
@@ -104,4 +112,4 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
     }
 }
  
-export default PokemonDetailContainer;
+export default withRouter(PokemonDetailContainer);

@@ -100,13 +100,15 @@ export const abilityDummy:AbilityDummyItem[] = [
     {name: 'Double Team', id:4, shortDescription:"Triples evasion", description:"Moves quicker than the light, increasing evasiveness"}
 ]
 
-interface TypeDummy{
+export interface TypeDummy{
     name:string;
     id:number;
-    double_damage_from: Array<{name: string, url:string}>;
-    double_damage_to: Array<{name:string, url:string}>;
-    half_damage_from: Array<{name:string, url:string}>;
-    half_damage_to: Array<{name:string, url:string}>
+    double_damage_from: Array<{name: number, url:string}>;
+    double_damage_to: Array<{name:number, url:string}>;
+    half_damage_from: Array<{name:number, url:string}>;
+    half_damage_to: Array<{name:number, url:string}> | any
+    no_damage_from: Array<{name:number, url:string}> | any
+    no_damage_to: Array<{name:number, url:string}> | any
 }
 export const typeDummy:TypeDummy[] = [
     {
@@ -114,59 +116,66 @@ export const typeDummy:TypeDummy[] = [
         id: 3,
         "double_damage_from": [
             {
-                "name": "rock",
+                "name": 6,
                 "url": "https://pokeapi.co/api/v2/type/6/"
             },
             {
-                "name": "electric",
+                "name": 13,
                 "url": "https://pokeapi.co/api/v2/type/13/"
             },
             {
-                "name": "ice",
+                "name": 15,
                 "url": "https://pokeapi.co/api/v2/type/15/"
             }
         ],
         "double_damage_to": [
             {
-                "name": "fighting",
+                "name": 2,
                 "url": "https://pokeapi.co/api/v2/type/2/"
             },
             {
-                "name": "bug",
+                "name": 7,
                 "url": "https://pokeapi.co/api/v2/type/7/"
             },
             {
-                "name": "grass",
+                "name": 12,
                 "url": "https://pokeapi.co/api/v2/type/12/"
             }
         ],
         "half_damage_from": [
             {
-                "name": "fighting",
+                "name": 2,
                 "url": "https://pokeapi.co/api/v2/type/2/"
             },
             {
-                "name": "bug",
+                "name": 7,
                 "url": "https://pokeapi.co/api/v2/type/7/"
             },
             {
-                "name": "grass",
+                "name": 12,
                 "url": "https://pokeapi.co/api/v2/type/12/"
             }
         ],
         "half_damage_to": [
             {
-                "name": "rock",
+                "name": 6,
                 "url": "https://pokeapi.co/api/v2/type/6/"
             },
             {
-                "name": "steel",
+                "name": 9,
                 "url": "https://pokeapi.co/api/v2/type/9/"
             },
             {
-                "name": "electric",
+                "name": 13,
                 "url": "https://pokeapi.co/api/v2/type/13/"
             }
         ],
+        "no_damage_from": [
+            {
+                "name": 5,
+                "url": "https://pokeapi.co/api/v2/type/5/"
+            }
+        ],
+        "no_damage_to": []
     }
 ]

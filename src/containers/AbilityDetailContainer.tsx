@@ -3,7 +3,10 @@ import TabContainer from './TabContainer'
 import Tab from '../components/common/Tab'
 import {abilityDummy, pokemonDummy} from '../helpers/dummy'
 import List from '../components/common/List'
-interface Props {
+import { withRouter, RouteComponentProps } from 'react-router';
+import {PathParamsType} from '../type'
+
+type Props = RouteComponentProps<PathParamsType> & {
     
 }
  
@@ -13,6 +16,13 @@ interface AbilityDetailState {
  
 class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> {
     state = { activeTab: 1  }
+
+    componentDidMount(){
+        // use this to log param 
+        // console.log(this.props.match.params.id);
+        
+    }
+
     renderAbility(){
         return(
             <div className='p-5 flex flex-col'>
@@ -37,7 +47,7 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
                 <TabContainer large={true}>
                     <div className='flex justify-center content-center items-center gap-8'>
                         <Tab name='Detail' active={this.state.activeTab === 1 ? true : false} onClick={() => this.handleOnTabClick(1)}/>
-                        <Tab name='Pokemons' active={this.state.activeTab === 2 ? true : false} onClick={() => this.handleOnTabClick(2)}/>
+                        <Tab name='Pokemon' active={this.state.activeTab === 2 ? true : false} onClick={() => this.handleOnTabClick(2)}/>
                     </div>
 
                     {/* Details */}
@@ -65,4 +75,4 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
     }
 }
  
-export default AbilityDetailContainer;
+export default withRouter(AbilityDetailContainer);
