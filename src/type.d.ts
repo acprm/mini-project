@@ -3,6 +3,10 @@ export interface DataMin {
     name: string
 }
 
+export interface ComponentPropsMin {
+    className?: string
+}
+
 export type Status = "idle" | "loading" | "failed"
 
 export type DataType = "pokemon" | "move" | "ability" | "type"
