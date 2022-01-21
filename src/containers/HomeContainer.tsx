@@ -51,9 +51,9 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
     }
 
     render(): React.ReactNode {
-        const dummies = this.props.pokemon.list;
+        const pokemonList = this.props.pokemon.list;
 
-        const renderPokemon = () => dummies && dummies.map((item) => {
+        const renderPokemon = () => pokemonList && pokemonList.map((item) => {
                 const fav = this.checkIfFavorite(item.name)
                 return (
                     <PokemonCard

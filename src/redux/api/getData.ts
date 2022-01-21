@@ -76,7 +76,7 @@ const transformData = (type: DataType, data: any) => {
                 zero: (damageRel.no_damage_from == []) ? [] : damageRel.no_damage_from.map((index: any) => getId(index.url))
             },
             moves: data.moves.map((index: any) => (getId(index.url))).filter((id: number) => id < 1000),
-            pokemon: data.pokemon.map((index: any) => (getId(index.pokemon.id))).filter((id: number) => id < 1000),
+            pokemon: data.pokemon.map((index: any) => (getId(index.pokemon.url))).filter((id: number) => id < 1000),
         }
 
         return transformedData
