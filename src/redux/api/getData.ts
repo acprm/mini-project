@@ -47,23 +47,14 @@ const transformData = (type: DataType, data: any) => {
             id: data.id,
             name: Pokemon.filter(pokemon => pokemon.id === data.id)[0].name,
             sprite: data.sprites.other["official-artwork"].front_default,
-            types: data.types.map((index: any) => index.type.name),
+            types: data.types.map((index: any) => getId(index.type.url)).filter((id: number) => id < 1000),
             stats: data.stats.map((index: any) => (
                 {
                     statName: index.stat.name,
                     baseStat: index.base_stat,
                 }
             )),
-            abilities: data.abilities.map((index: any) => {
-                const id = getId(index.ability.url)
-                const ability = Ability.filter(data => data.id === id)[0]
-                return (
-                    {
-                        id: id,
-                        name: ability.name
-                    }
-                )
-            }),
+            abilities: data.abilities.map((index: any) => (getId(index.ability.url))),
             moves: data.moves.map((index: any) => (getId(index.move.url))).filter((id: number) => id < 1000),
         }
 
@@ -75,14 +66,14 @@ const transformData = (type: DataType, data: any) => {
             id: data.id,
             name: Type.filter(type => type.id === data.id)[0].name || data.name,
             offensive: {
-                double: (damageRel.double_damage_to == []) ? [] : damageRel.double_damage_to.map((index: any) => index.name),
-                half: (damageRel.half_damage_to == []) ? [] : damageRel.half_damage_to.map((index: any) => index.name),
-                zero: (damageRel.no_damage_to == []) ? [] : damageRel.no_damage_to.map((index: any) => index.name)
+                double: (damageRel.double_damage_to == []) ? [] : damageRel.double_damage_to.map((index: any) => getId(index.url)),
+                half: (damageRel.half_damage_to == []) ? [] : damageRel.half_damage_to.map((index: any) => getId(index.url)),
+                zero: (damageRel.no_damage_to == []) ? [] : damageRel.no_damage_to.map((index: any) => getId(index.url))
             },
             defensive: {
-                double: (damageRel.double_damage_from == []) ? [] : damageRel.double_damage_from.map((index: any) => index.name),
-                half: (damageRel.half_damage_from == []) ? [] : damageRel.half_damage_from.map((index: any) => index.name),
-                zero: (damageRel.no_damage_from == []) ? [] : damageRel.no_damage_from.map((index: any) => index.name)
+                double: (damageRel.double_damage_from == []) ? [] : damageRel.double_damage_from.map((index: any) => getId(index.url)),
+                half: (damageRel.half_damage_from == []) ? [] : damageRel.half_damage_from.map((index: any) => getId(index.url)),
+                zero: (damageRel.no_damage_from == []) ? [] : damageRel.no_damage_from.map((index: any) => getId(index.url))
             },
             moves: data.moves.map((index: any) => (getId(index.url))).filter((id: number) => id < 1000),
             pokemon: data.pokemon.map((index: any) => (getId(index.pokemon.id))).filter((id: number) => id < 1000),
