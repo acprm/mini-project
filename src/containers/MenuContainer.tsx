@@ -9,8 +9,8 @@ class MenuContainer extends Component<any, any> {
 
     render() {
         return (
-            <div className="px-6">
-                <div>
+            <div className="px-6 flex flex-col justify-center items-center">
+                <div className="w-[25rem]">
                     <hr/>
                     {this.menuList.map(({id, name, path}) => (
                         <div key={id} className="hover:bg-light-gray">
