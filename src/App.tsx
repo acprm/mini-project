@@ -25,11 +25,11 @@ class App extends React.Component {
                         <Route exact path="/search">
                             <SearchContainer/>
                         </Route>
-                        
+
                         <Route exact path="/favorites">
                             <RouteDisplay path='Favorites'/>
                         </Route>
-                        
+
                         <Route exact path="/ability/:id">
                             <AbilityDetail/>
                         </Route>
