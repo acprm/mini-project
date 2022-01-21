@@ -1,9 +1,9 @@
-// import { combineReducers, createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import pokemonReducer from './reducers/pokemonSlice';
 import typesReducer from "./reducers/typesSlice";
 import abilitiesReducer from "./reducers/abilitiesSlice"
 import movesReducer from "./reducers/movesSlice"
+import modalsReducer from "./reducers/modalsSlice"
 
 export const store = configureStore({
     reducer:{
@@ -11,6 +11,7 @@ export const store = configureStore({
         types: typesReducer,
         abilities: abilitiesReducer,
         moves: movesReducer,
+        modals: modalsReducer
     }
 });
 
