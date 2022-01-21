@@ -1,45 +1,49 @@
 import React from "react";
-import { favorites } from "../helpers/local";
+import {RootState} from '../redux/store'
+import {connect} from 'react-redux'
+import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
-import {pokemonDummy} from '../helpers/dummy';
+import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
+
 
 interface HomeProps {
-    pokemons: {}[];
+    pokemon: PokemonState,
+    fetchPokemon: ({id, lastId, limit}: { id: number | number[], lastId?: number, limit?: number }) => void
 }
 
 interface HomeState {
     favs: Array<string>
 }
 
-export default class HomeContainer extends React.Component<HomeProps, HomeState>{
-    constructor(props: HomeProps){
+class HomeContainer extends React.Component<HomeProps, HomeState> {
+    constructor(props: HomeProps) {
         super(props);
 
         const lsData = favorites();
-        if(lsData){
+        if (lsData) {
             this.state = {favs: JSON.parse(lsData)}
         } else {
             this.state = {favs: []}
         }
-        
+
     }
 
-    componentDidMount(): void { 
-        console.log(this.state.favs);  
+    componentDidMount(): void {
+        this.props.fetchPokemon({id: 1, lastId: 20})
+        console.log(this.state.favs);
     }
 
-    checkIfFavorite(name:string):boolean{
+    checkIfFavorite(name: string): boolean {
         if (this.state.favs.filter(item => name === item).length > 0) return true;
         else return false
     }
-    
-    handleHeartClick(name:string, favorite:boolean) {
-        if(!favorite) {
+
+    handleHeartClick(name: string, favorite: boolean) {
+        if (!favorite) {
             const newFavs = [...this.state.favs, name]
-            this.setState({favs: newFavs });
+            this.setState({favs: newFavs});
             localStorage.setItem('favorites', JSON.stringify(newFavs))
-        }
-        else if(favorite){
+        } else if (favorite) {
             const newFavs = this.state.favs.filter(item => item !== name)
             this.setState({favs: newFavs})
             localStorage.setItem('favorites', JSON.stringify(newFavs))
@@ -47,21 +51,21 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
     }
 
     render(): React.ReactNode {
-        const dummies = pokemonDummy;
-        console.log(this.props);
-        const renderPokemon = () => dummies && dummies.map((item,idx)=>{
+        const dummies = this.props.pokemon.list;
+
+        const renderPokemon = () => dummies && dummies.map((item) => {
                 const fav = this.checkIfFavorite(item.name)
                 return (
-                <PokemonCard
-                    key={idx}
-                    pokeName={item.name}
-                    imgUrl={item.imgUrl}
-                    url={item.url}
-                    favorite={fav}
-                    pokeTypes={item.type}
-                    onHeartClick={()=>this.handleHeartClick(item.name, fav)}
-                    id={item.id}
-                />
+                    <PokemonCard
+                        key={item.id}
+                        pokeName={item.name}
+                        imgUrl={item.sprite}
+                        url={item.sprite}
+                        favorite={fav}
+                        pokeTypes={item.types}
+                        onHeartClick={() => this.handleHeartClick(item.name, fav)}
+                        id={item.id}
+                    />
                 )
             }
         )
@@ -77,3 +81,9 @@ export default class HomeContainer extends React.Component<HomeProps, HomeState>
     }
 
 }
+
+const mapStateToProps = (state: RootState) => ({
+    pokemon: state.pokemon,
+})
+
+export default connect(mapStateToProps, {fetchPokemon})(HomeContainer);
