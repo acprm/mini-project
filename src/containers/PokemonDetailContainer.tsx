@@ -32,7 +32,7 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
                         {pokemonDummy[0].type.map((item, idx)=>{
                             return(
                                 <div key={idx}>
-                                    <PokeMoveType type={item} id={1} />
+                                    <PokeMoveType id={item} />
                                 </div>
                             )
                         })}

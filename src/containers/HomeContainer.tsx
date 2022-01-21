@@ -62,7 +62,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
                         imgUrl={item.sprite}
                         url={item.sprite}
                         favorite={fav}
-                        pokeTypes={["grass", "fire"]}
+                        pokeTypes={item.types}
                         onHeartClick={() => this.handleHeartClick(item.name, fav)}
                         id={item.id}
                     />

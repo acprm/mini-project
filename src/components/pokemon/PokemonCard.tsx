@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PokeMoveType from '../common/PokeMoveType'
 
 interface PokemonCardProps{
-    pokeTypes: string[];
+    pokeTypes: number[];
     pokeName: string;
     url: string;
     imgUrl: string;
@@ -17,7 +17,7 @@ class PokemonCard extends React.Component<PokemonCardProps>{
     render(): React.ReactNode {
         
         const renderType = () => this.props.pokeTypes.map((pokeType, idx) => {
-            return <PokeMoveType type={pokeType} id={1} key={idx} />
+            return <PokeMoveType id={pokeType} key={idx} />
         })
 
         const typeLen = this.props.pokeTypes.length;

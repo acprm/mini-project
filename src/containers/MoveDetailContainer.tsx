@@ -21,7 +21,7 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
                     <div className='text-4xl font-semibold'>{moveDummy[5].name}</div>
                     <div className='text-lg text-dark-gray'>Move</div>
                     <div className='my-5'>
-                        <PokeMoveType type={moveDummy[5].types[0]} id={1} />
+                        <PokeMoveType id={moveDummy[5].types[0]} />
                     </div>
                 </div>
             </div>

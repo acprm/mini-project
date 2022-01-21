@@ -4,7 +4,7 @@ import PokeMoveType from './PokeMoveType'
 
 interface ListProps{
     category: 'move' | 'pokemon' | 'ability'
-    types:string[];
+    types:number[];
     item:string;
     imgUrl:string;
     id:number;
@@ -19,7 +19,7 @@ export default class List extends React.Component<ListProps>{
     render(): React.ReactNode {
 
         const renderType = () => this.props.types && this.props.types.map((itemType, idx) => {
-            return <PokeMoveType type={itemType} id={1} key={idx} large={false} />
+            return <PokeMoveType id={itemType} key={idx} large={false} />
         })
 
         return (
