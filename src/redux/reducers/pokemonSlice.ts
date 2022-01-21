@@ -4,14 +4,14 @@ import {getData} from "../api/getData";
 
 // Minimum Data for Pokemon
 export interface PokemonMin extends DataMin {
-    types: string[]
+    types: number[]
     sprite: string
 }
 
 export interface PokemonDetail extends PokemonMin {
     stats: PokemonStat[]
     moves: number[]
-    abilities: DataMin[]
+    abilities: number[]
 }
 
 export type PokemonStat = {

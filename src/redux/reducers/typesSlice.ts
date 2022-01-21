@@ -10,9 +10,9 @@ export interface TypeDetail extends DataMin {
 }
 
 export interface DamageRelation {
-    double: string[],
-    half: string[],
-    zero: string[]
+    double: number[],
+    half: number[],
+    zero: number[]
 }
 
 export interface TypesState {

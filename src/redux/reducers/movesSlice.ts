@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getData} from "../api/getData";
 
 export interface MoveDetail extends DataMin {
-    type: string
+    type: number
     shortDescription: string
     longDescription: string
     pp: number,
