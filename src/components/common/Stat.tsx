@@ -1,7 +1,8 @@
 import "./Stat.css"
-import {PokemonStat} from '../../type.d'
+import {PokemonStat} from "../../redux/reducers/pokemonSlice";
 
 const Stat = (props: PokemonStat) => {
+    // @ts-ignore
     const percentage = props.baseStat / props.maxStat
     let color
 
