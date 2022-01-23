@@ -48,12 +48,43 @@ const transformData = (type: DataType, data: any) => {
             name: Pokemon.filter(pokemon => pokemon.id === data.id)[0].name,
             sprite: data.sprites.other["official-artwork"].front_default,
             types: data.types.map((index: any) => getId(index.type.url)).filter((id: number) => id < 1000),
-            stats: data.stats.map((index: any) => (
-                {
-                    statName: index.stat.name,
-                    baseStat: index.base_stat,
+            stats: data.stats.map((index: any) => {
+                let statName = ""
+                let maxStat = 0
+
+                switch (index.stat.name) {
+                    case ("hp") :
+                        statName = "HP"
+                        maxStat = 255
+                        break
+                    case ("attack") :
+                        statName = "Attack"
+                        maxStat = 181
+                        break
+                    case ("defense") :
+                        statName = "Defense"
+                        maxStat = 230
+                        break
+                    case ("special-attack") :
+                        statName = "Sp. Attack"
+                        maxStat = 180
+                        break
+                    case ("special-defense") :
+                        statName = "Sp. Defense"
+                        maxStat = 230
+                        break
+                    case ("speed") :
+                        statName = "Speed"
+                        maxStat = 200
+                        break
                 }
-            )),
+
+                return {
+                    statName,
+                    baseStat: index.base_stat,
+                    maxStat
+                }
+            }),
             abilities: data.abilities.map((index: any) => (getId(index.ability.url))),
             moves: data.moves.map((index: any) => (getId(index.move.url))).filter((id: number) => id < 1000),
         }

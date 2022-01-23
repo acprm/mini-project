@@ -17,7 +17,7 @@ export interface PokemonDetail extends PokemonMin {
 export type PokemonStat = {
     statName: string,
     baseStat: number,
-    maxStat?: number,
+    maxStat: number,
 }
 
 export interface PokemonState {
