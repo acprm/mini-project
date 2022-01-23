@@ -6,23 +6,28 @@ import Stat from "../common/Stat";
 // TODO 1. define props type to be inserted as the Stat property
 // TODO 2. Add calculation for total stat
 
-class Stats extends Component<any, any>{
+interface StatsProps {
+    statList: PokemonStat[]
+}
+
+class Stats extends Component<StatsProps>{
 
     totalStats = (statList: PokemonStat[]) => {
-        // calculate the total stat from the Array of PokemonStat Object
+        let totalBase = 0
+
+        for (let i = 0; i < statList.length; i++) {
+            totalBase += statList[i].baseStat
+        }
+
+        return totalBase
     }
 
     render() {
         return (
             <div>
                 <div>
-                    <Stat baseStat={10} maxStat={120} statName="HP"/>
-                    <Stat baseStat={30} maxStat={120} statName="Attack"/>
-                    <Stat baseStat={50} maxStat={120} statName="Defense"/>
-                    <Stat baseStat={70} maxStat={120} statName="Sp. Atk"/>
-                    <Stat baseStat={90} maxStat={120} statName="Sp. Def"/>
-                    <Stat baseStat={110} maxStat={120} statName="Speed"/>
-                    <Stat baseStat={500} maxStat={720} statName="Total"/>
+                    {this.props.statList.map((index: any) => <Stat key={index.statName} baseStat={index.baseStat} statName={index.statName} maxStat={index.maxStat}/>)}
+                    <Stat baseStat={this.totalStats(this.props.statList)} maxStat={720} statName="Total"/>
                 </div>
             </div>
         )
