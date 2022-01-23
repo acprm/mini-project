@@ -85,7 +85,7 @@ const transformData = (type: DataType, data: any) => {
         const transformedData: MoveDetail = {
             id: data.id,
             name: Move.filter(move => move.id === data.id)[0].name || data.name,
-            type: data.type.name,
+            type: getId(data.type.url) as number,
             shortDescription: data.effect_entries[0].short_effect,
             longDescription: data.effect_entries[0].effect,
             accuracy: data.accuracy,
