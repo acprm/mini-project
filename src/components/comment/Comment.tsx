@@ -1,9 +1,9 @@
 import {Component} from "react";
 
-interface CommentProps {
+export interface CommentProps {
     name: string;
     comment: string;
-    timestamp: Date;
+    timestamp: string;
 }
 
 class Comment extends Component<CommentProps> {
@@ -12,7 +12,7 @@ class Comment extends Component<CommentProps> {
             <div>
                 <div className="pt-4 flex justify-between items-end">
                     <span className="font-bold text-[18px]">{this.props.name}</span>
-                    <span className="text-[12px] text-dark-gray">{this.props.timestamp.toDateString()}</span>
+                    <span className="text-[12px] text-dark-gray">{this.props.timestamp}</span>
                 </div>
                 <div className="pt-3 pb-4 text-[18px]">
                     {this.props.comment}
