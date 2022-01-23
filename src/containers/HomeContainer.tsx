@@ -29,7 +29,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
     }
 
     componentDidMount(): void {
-        this.props.fetchPokemon({id: 1, lastId: 20})
+        this.props.fetchPokemon({id: 1, lastId: 24})
         console.log(this.state.favs);
     }
 
