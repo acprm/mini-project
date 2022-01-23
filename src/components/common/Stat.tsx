@@ -2,15 +2,13 @@ import "./Stat.css"
 import {PokemonStat} from "../../redux/reducers/pokemonSlice";
 
 const Stat = (props: PokemonStat) => {
-    // @ts-ignore
     const percentage = props.baseStat / props.maxStat
     let color
-
-    console.log(props.statName, percentage)
+    
 
     if (percentage <= 1/3) {
         color = "low"
-    } else if (percentage >= 1/3 && percentage < 2/3) {
+    } else if (percentage >= 1/3 && percentage <= 2/3) {
         color = "medium"
     } else if (percentage > 2/3) {
         color = "high"
