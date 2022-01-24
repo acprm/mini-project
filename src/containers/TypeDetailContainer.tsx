@@ -12,7 +12,6 @@ import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
 import TabContainer from './TabContainer'
 import {PathParamsType} from '../type'
-import { getData } from '../redux/api/getData';
 
 
 type Props = RouteComponentProps<PathParamsType> & {
@@ -32,29 +31,12 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     state = { activeTab: 1}
 
     componentDidMount():void {
-        (async() =>{
-            const idParam = +this.props.match.params.id
-            await this.props.fetchTypes({id:idParam})
-            // const arr = this.props.types.list[0].moves;
-            // const result = await getData('move',arr);
-            // arr.map(async (item)=>{
-            //     const results = await getData('move',item)
-            //     console.log(results);
-            // })
-            // console.log(result);
-            await this.props.fetchMoves({id: this.props.types.list[0].moves})
-            await this.props.fetchPokemon({id: this.props.types.list[0].pokemon})    
-        })()
+        this.callApi()
     }
 
     componentDidUpdate(prevProps:Props){
         if(prevProps.match.params.id !== this.props.match.params.id){
-            (async() =>{
-                const idParam = +this.props.match.params.id
-                await this.props.fetchTypes({id:idParam})
-                await this.props.fetchMoves({id: this.props.types.list[0].moves})
-                await this.props.fetchPokemon({id: this.props.types.list[0].pokemon})    
-            })()
+            this.callApi()
         }
     }
 
@@ -193,7 +175,6 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
     render():React.ReactNode {     
         
-        // console.log(this.props.types.list[0].moves);
         if(this.props.types.list[0]) return ( 
             <div className='flex flex-col gap-5'>
                 { this.renderType()}
@@ -206,7 +187,7 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
                     {/* dmg relation */}
                     
-                    <div className={`${this.state.activeTab !== 1 ? 'hidden' : 'inline-block'} flex justify-center gap-20 content-center overflow-y-auto`}>
+                    <div className={`${this.state.activeTab !== 1 ? 'hidden' : 'inline-block'} flex justify-center gap-5 sm:gap-20 content-center overflow-y-auto`}>
                         
                         {/* offensive */}
                         {this.renderOffensive()}
