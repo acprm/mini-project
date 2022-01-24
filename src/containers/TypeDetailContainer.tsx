@@ -84,26 +84,37 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
             <div className='flex flex-col items-center content-center font-semibold gap-5 '>
                             <div>Offensive</div>
                             <div className='flex flex-col gap-4 items-center'>
-                                <div>2x Damage</div>
-                                {this.props.types.list[0].offensive.double.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}
+                                {this.props.types.list[0].offensive.double.length>0 && (
+                                <>
+                                    <div>2x Damage</div>
+                                    {this.props.types.list[0].offensive.double.map((item, idx)=>{
+                                        return(
+                                            <PokeMoveType id={item} key={idx} />
+                                        )
+                                    })}
+                                </>)}
 
-                                <div>1/2x Damage</div>
-                                {this.props.types.list[0].offensive.half.map((item,idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}    
+                                {this.props.types.list[0].offensive.half.length>0 && (
+                                    <>
+                                        <div>1/2x Damage</div>
+                                        {this.props.types.list[0].offensive.half.map((item,idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}    
+                                    </>
+                                )}
 
-                                <div>0 Damage</div>
-                                {this.props.types.list[0].offensive.zero.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}                                                             
+                                {this.props.types.list[0].offensive.zero.length>0 && (
+                                <>
+                                    <div>0 Damage</div>
+                                    {this.props.types.list[0].offensive.zero.map((item, idx)=>{
+                                        return(
+                                            <PokeMoveType id={item} key={idx} />
+                                        )
+                                    })}                                                             
+                                </>    
+                                )}
                             </div>
                         </div>
         )
@@ -112,28 +123,42 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     renderDefensive(){
         return(
             <div className='flex flex-col items-center content-center font-semibold gap-5 '>
+                            
                             <div>Defensive</div>
                             <div className='flex flex-col gap-4 items-center'>
-                                <div>2x Damage</div>
-                                {this.props.types.list[0].defensive.double.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}
+                                {this.props.types.list[0].defensive.double.length>0 && (
+                                    <>
+                                        <div>2x Damage</div>
+                                        {this.props.types.list[0].defensive.double.map((item, idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}
+                                    </>
+                                )}
 
-                                <div>1/2x Damage</div>
-                                {this.props.types.list[0].defensive.half.map((item,idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}    
+                                {this.props.types.list[0].defensive.half.length>0 && (
+                                    <>
+                                        <div>1/2x Damage</div>
+                                        {this.props.types.list[0].defensive.half.map((item,idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}    
+                                    </>
+                                )}
 
-                                <div>0 Damage</div>
-                                {this.props.types.list[0].defensive.zero.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}                                                             
+
+                                {this.props.types.list[0].defensive.zero.length>0 && (
+                                    <>
+                                        <div>0 Damage</div>
+                                        {this.props.types.list[0].defensive.zero.map((item, idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}                                                             
+                                    </>
+                                )}
                             </div>
                         </div>
         )
