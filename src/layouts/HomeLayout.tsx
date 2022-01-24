@@ -7,7 +7,7 @@ export default class HomeLayout extends React.Component{
         return (
             <div className="container mx-auto">
                 <Background >
-                    <Header back={Back.HOME}/>
+                    <Header back={Back.HOME} favorite={false}/>
                     {this.props.children}
                 </Background>
             </div>

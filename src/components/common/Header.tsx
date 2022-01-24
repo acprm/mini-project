@@ -3,10 +3,12 @@ import SearchBox from './SearchBox'
 import {Link} from "react-router-dom";
 import {MdClose, MdHome} from "react-icons/md"
 import MenuContainer from "../../containers/MenuContainer";
+import {RouteComponentProps, withRouter} from "react-router";
+import {PathParamsType} from "../../type";
 
 export enum Back {HOME, PREV}
 
-interface HeaderProps {
+type HeaderProps = RouteComponentProps<PathParamsType> & {
     back: Back;
     favorite: boolean;
     searchTerm?: string;
@@ -18,7 +20,7 @@ interface HeaderState {
     menuOpen: boolean
 }
 
-export default class Header extends React.Component<HeaderProps, HeaderState> {
+class Header extends React.Component<HeaderProps, HeaderState> {
     state = {
         menuOpen: false
     }
@@ -32,14 +34,14 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
         this.setState({menuOpen: !this.state.menuOpen})
     }
 
-    renderMenuButton () {
+    renderMenuButton() {
         if (this.props.favorite) {
             return <img src="/heart-outline.svg" alt="Favorite"/>
-        }
-        else {
+        } else {
             return (
                 <button onClick={this.toggleButton}>
-                    {this.state.menuOpen ? <MdClose className="text-main-red text-2xl"/> :  <img src="/menu.svg" alt="Menu"/>}
+                    {this.state.menuOpen ? <MdClose className="text-main-red text-2xl"/> :
+                        <img src="/menu.svg" alt="Menu"/>}
                 </button>
             )
         }
@@ -51,9 +53,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="flex justify-center items-center gap-4 py-5">
                     {(this.props.back === Back.PREV) ? (
                         // TODO make this work to go back to the previous route instead of home
-                        <Link to="/">
+                        <button onClick={() => this.props.history.goBack()}>
                             <img src="/arrow-back.svg" alt="Back"/>
-                        </Link>
+                        </button>
                     ) : (
                         <Link to="/">
                             <MdHome className="text-main-red text-2xl"/>
@@ -69,8 +71,10 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                         {this.renderMenuButton()}
                     </div>
                 </div>
-                {this.state.menuOpen && <MenuContainer/> }
+                {this.state.menuOpen && <MenuContainer/>}
             </div>
         )
     }
 }
+
+export default withRouter(Header)

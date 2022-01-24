@@ -2,7 +2,7 @@ import React, {ChangeEvent, Component} from "react";
 import {Link} from "react-router-dom";
 import {KeyWord} from "../KeyWord";
 import {capitalizeSingle} from "../helpers/capitalize"
-import Header from "../components/common/Header";
+import Header, {Back} from "../components/common/Header";
 
 
 class SearchContainer extends Component<any, any> {
@@ -37,6 +37,8 @@ class SearchContainer extends Component<any, any> {
                     searchTerm={this.props.term}
                     searchHandler={this.handleChange}
                     searchActive={true}
+                    back={Back.PREV}
+                    favorite={false}
                 />
                 {this.renderSuggestion()}
             </div>

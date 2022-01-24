@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/common/Header";
+import Header, {Back} from "../components/common/Header";
 import Background from "../components/common/Background";
 
 export default class MainLayout extends React.Component{
@@ -7,7 +7,7 @@ export default class MainLayout extends React.Component{
         return (
             <div className="container mx-auto">
                 <Background >
-                    <Header/>
+                    <Header back={Back.HOME} favorite={false}/>
                     {this.props.children}
                 </Background>
             </div>
