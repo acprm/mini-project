@@ -130,7 +130,7 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
                     {/* Comments */}
                     <div className={`${this.state.activeTab !== 4 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
                         <CommentForm pokemonId={+this.props.match.params.id} refreshComment={this.commentStateRefresh}/>
-                        {this.state.comments.map(({comment, name, timestamp}) => <Comment key={`${name}-${timestamp}`} name={name} comment={comment}
+                        {this.state.comments.reverse().map(({comment, name, timestamp}) => <Comment key={`${name}-${timestamp}`} name={name} comment={comment}
                                                                                           timestamp={timestamp}/>
                         )}
                     </div>
