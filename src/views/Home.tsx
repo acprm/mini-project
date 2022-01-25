@@ -26,7 +26,7 @@ class Home extends Component<HomeProps> {
                     </div>
                 </div>
                 <HomeLayout>
-                    <FilterButton className="fixed right-20 bottom-20"/>
+                    <FilterButton className="fixed right-10 bottom-10 md:right-20 md:bottom-20"/>
                     <HomeContainer/>
                 </HomeLayout>
             </>
