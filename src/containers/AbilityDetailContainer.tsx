@@ -1,15 +1,20 @@
 import React from 'react';
+
 import TabContainer from './TabContainer'
+
 import Tab from '../components/common/Tab'
 import List from '../components/common/List'
+import Fallback from '../components/common/Fallback';
+
 import {RouteComponentProps, withRouter} from 'react-router';
-import {PathParamsType} from '../type'
+import { Redirect } from 'react-router-dom';
+
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
 import {AbilitiesState, fetchAbilities} from "../redux/reducers/abilitiesSlice";
 import {RootState} from "../redux/store";
 import {connect} from "react-redux";
 import { appName } from '../helpers/baseContents';
-import {Ability} from '../KeyWord'
+import {PathParamsType} from '../type'
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -26,13 +31,20 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
     state = {activeTab: 1}
 
     componentDidMount() {
-        (async () => {
-            const abilityId = +this.props.match.params.id
-            await this.props.fetchAbilities({id: abilityId})
-            await this.props.fetchPokemon({id: this.props.abilities.list[0].pokemon})
-        })()
-        const idParam = this.props.match.params.id
-        document.title = `${appName} - ${Ability.filter(item => item.id === +idParam)[0].name}`
+        this.callApi();
+        document.title = `${appName} - Ability`
+    }
+
+    componentDidUpdate(prevProps:Props){
+        if(prevProps.match.params.id !== this.props.match.params.id){
+            this.callApi()
+        }
+    }
+
+    async callApi(){
+        const abilityId = +this.props.match.params.id
+        await this.props.fetchAbilities({id: abilityId})
+        await this.props.fetchPokemon({id: this.props.abilities.list[0].pokemon})
     }
 
     renderAbility() {
@@ -53,7 +65,9 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
     }
 
     render() {
-        if (this.props.abilities.list[0]) return (
+        if(this.props.abilities.status === 'loading') { return <Fallback/>}
+        else if(this.props.abilities.status === 'failed') return <Redirect to='/404' />
+        else if (this.props.abilities.list[0]) return (
             <div className='flex flex-col gap-5'>
                 {this.renderAbility()}
                 <TabContainer large={true}>

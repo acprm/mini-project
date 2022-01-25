@@ -99,7 +99,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                         </button>
                     ) : (
                         <Link to="/">
-                            <MdHome className="text-main-red text-2xl"/>
+                            <button type="button">
+                                <MdHome className="text-main-red text-2xl"/>
+                            </button>
                         </Link>
                     )
                     }

@@ -2,8 +2,27 @@ import {Component} from "react";
 import { Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import {MdHome} from "react-icons/md";
+import {connect} from 'react-redux'
+import {setTypesIdle} from '../redux/reducers/typesSlice'
+import {setMovesIdle} from '../redux/reducers/movesSlice'
+import {setPokemonIdle} from '../redux/reducers/pokemonSlice'
+import {setAbilitiesIdle} from '../redux/reducers/abilitiesSlice'
+import { RootState } from "../redux/store";
 
-class PageNotFound extends Component {
+interface PageNotFoundProps{
+    setTypesIdle: ()=>void
+    setMovesIdle: ()=>void
+    setPokemonIdle: ()=>void
+    setAbilitiesIdle: ()=>void
+}
+
+class PageNotFound extends Component<PageNotFoundProps> {
+    componentDidMount(){
+        this.props.setTypesIdle();
+        this.props.setMovesIdle();
+        this.props.setPokemonIdle();
+        this.props.setAbilitiesIdle();
+    }
     render() {
         return (
             <MainLayout>
@@ -24,4 +43,4 @@ class PageNotFound extends Component {
     }
 }
 
-export default PageNotFound
+export default connect(null,{setTypesIdle, setMovesIdle, setPokemonIdle, setAbilitiesIdle})(PageNotFound)

@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteComponentProps, withRouter} from 'react-router'
+import { Redirect } from 'react-router-dom';
 import {connect} from "react-redux";
 import {RootState} from "../redux/store";
 
@@ -17,6 +18,7 @@ import PokeMoveType from '../components/common/PokeMoveType';
 import {PathParamsType} from '../type'
 import {appName} from '../helpers/baseContents'
 import {Pokemon} from '../KeyWord'
+import Fallback from '../components/common/Fallback';
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -40,22 +42,27 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
 
     componentDidMount() {
         // fetch pokemon detail
-        (async () => {
-            const pokemonId = +this.props.match.params.id
-            await this.props.fetchPokemon({id: pokemonId})
-            await this.props.fetchMoves({id: this.props.pokemon.list[0].moves})
-            await this.props.fetchAbilities({id: this.props.pokemon.list[0].abilities})
-
-            const comments = await localStorage.getItem(`comment-${pokemonId}`)
-            if (comments !== null) {
-                this.setState({comments: JSON.parse(comments)})
-            }
-        })()
-        const idParam = this.props.match.params.id
-        document.title = `${appName} - ${Pokemon.filter(item => item.id === +idParam)[0].name}`
+        this.callApi()
+        document.title = `${appName} - Pokemon`
     }
 
- 
+    componentDidUpdate(prevProps:Props){
+        if(prevProps.match.params.id !== this.props.match.params.id){
+            this.callApi()
+        }
+    }
+
+    async callApi(){
+        const pokemonId = +this.props.match.params.id
+        await this.props.fetchPokemon({id: pokemonId})
+        await this.props.fetchMoves({id: this.props.pokemon.list[0].moves})
+        await this.props.fetchAbilities({id: this.props.pokemon.list[0].abilities})
+
+        const comments = await localStorage.getItem(`comment-${pokemonId}`)
+        if (comments !== null) {
+            this.setState({comments: JSON.parse(comments)})
+        }
+    }
 
     renderPokemon = () => {
         return (
@@ -90,7 +97,9 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
     }
 
     render() {
-        if (this.props.pokemon.list[0]) return (
+        if(this.props.pokemon.status === 'loading') { return <Fallback/>}
+        else if(this.props.pokemon.status === 'failed') return <Redirect to='/404' />
+        else if (this.props.pokemon.list[0]) return (
             <div className='flex flex-col gap-5'>
                 {this.renderPokemon()}
 

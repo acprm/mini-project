@@ -37,7 +37,11 @@ export const fetchTypes = createAsyncThunk(
 export const typesSlice = createSlice({
         name: 'types',
         initialState,
-        reducers: {},
+        reducers: {
+            setTypesIdle(state){
+                state.status = 'idle'
+            }
+        },
         extraReducers: builder => {
             builder
                 .addCase(fetchTypes.pending, (state) => {
@@ -57,5 +61,5 @@ export const typesSlice = createSlice({
         }
     }
 )
-
+export const {setTypesIdle} = typesSlice.actions
 export default typesSlice.reducer

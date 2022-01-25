@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import {connect} from 'react-redux'
 import {RootState} from '../redux/store'
+import { Redirect } from 'react-router-dom';
 
 import { fetchTypes, TypesState} from '../redux/reducers/typesSlice'
 import { fetchPokemon, PokemonState } from '../redux/reducers/pokemonSlice';
@@ -14,6 +15,8 @@ import TabContainer from './TabContainer'
 import {PathParamsType} from '../type'
 import { appName } from '../helpers/baseContents';
 import {Type} from '../KeyWord'
+import Fallback from '../components/common/Fallback';
+
 
 type Props = RouteComponentProps<PathParamsType> & {
     types: TypesState;
@@ -30,20 +33,24 @@ interface TypeDetailState {
  
 class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     state = { activeTab: 1}
+    
 
     componentDidMount():void {
-        this.callApi()
+        const title = Type.filter(item => item.id === +this.props.match.params.id);
+        this.callApi()   
         const idParam = this.props.match.params.id
-        document.title = `${appName} - ${Type.filter(item => item.id === +idParam)[0].name}`
+        document.title = `${appName} - Type`
     }
 
     componentDidUpdate(prevProps:Props){
         if(prevProps.match.params.id !== this.props.match.params.id){
             this.callApi()
             const idParam = this.props.match.params.id
-            document.title = `${appName} - ${Type.filter(item => item.id === +idParam)[0].name}`
+            const title = Type.filter(item => item.id === +this.props.match.params.id);
         }
     }
+
+
 
     async callApi(){
         const idParam = +this.props.match.params.id
@@ -179,8 +186,9 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     }
 
     render():React.ReactNode {     
-        
-        if(this.props.types.list[0]) return ( 
+        if(this.props.types.status === 'loading') { return <Fallback/>}
+        else if(this.props.types.status === 'failed') return <Redirect to='/404' />
+        else if(this.props.types.list[0]) return ( 
             <div className='flex flex-col gap-5'>
                 { this.renderType()}
                 <TabContainer large={true}>
@@ -216,7 +224,7 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
                 </TabContainer>
             </div>
          );
-         else return 'Loading...'
+         else return null;
     }
 }
 

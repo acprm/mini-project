@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import  {connect} from 'react-redux';
 import { RootState } from '../redux/store';
 
@@ -10,9 +11,10 @@ import TabContainer from './TabContainer'
 import Tab from '../components/common/Tab'
 import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
+import Fallback from '../components/common/Fallback'
+
 import {PathParamsType} from '../type'
 import { appName } from '../helpers/baseContents';
-import {Move} from '../KeyWord'
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState;
@@ -35,8 +37,19 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
             await this.props.fetchMoves({id:idParam})
             await this.props.fetchPokemon({id:this.props.moves.list[0].pokemon})
         })()
-        const idParam = this.props.match.params.id
-        document.title = `${appName} - ${Move.filter(item => item.id === +idParam)[0].name}`
+        document.title = `${appName} - Move`
+    }
+
+    componentDidUpdate(prevProps:Props){
+        if(prevProps.match.params.id !== this.props.match.params.id){
+            this.callApi()
+        }
+    }
+
+    async callApi(){
+        const idParam = +this.props.match.params.id
+        await this.props.fetchMoves({id:idParam})
+        await this.props.fetchPokemon({id:this.props.moves.list[0].pokemon})
     }
 
     renderMove(){
@@ -95,7 +108,9 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
     }
 
     render() { 
-        if(this.props.moves.list[0]) return ( 
+        if(this.props.moves.status === 'loading') { return <Fallback/>}
+        else if(this.props.moves.status === 'failed') return <Redirect to='/404' />
+        else if(this.props.moves.list[0]) return ( 
             <div className='flex flex-col gap-5'>
                 {this.renderMove()}
                 <TabContainer large={true}>
@@ -116,7 +131,7 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
                 </TabContainer>
             </div>
          );
-        else return 'Loading...'
+        else return null
     }
 }
  
