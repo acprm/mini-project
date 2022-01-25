@@ -55,16 +55,17 @@ class FavoriteContainer extends React.Component<FavoriteProps, FavoriteState> {
     renderPokemon = () => this.props.pokemon.list && this.props.pokemon.list.map((item) => {
         const fav = this.checkIfFavorite(item.id)
         return (
-            
-                <PokemonCard
-                    pokeName={item.name}
-                    imgUrl={item.sprite}
-                    url={item.sprite}
-                    favorite={fav}
-                    pokeTypes={item.types}
-                    onHeartClick={() => this.handleHeartClick(item.id, fav)}
-                    id={item.id}
-                />
+                <div className={`${!fav && 'hidden'}`} key={item.id}>
+                    <PokemonCard
+                        pokeName={item.name}
+                        imgUrl={item.sprite}
+                        url={item.sprite}
+                        favorite={fav}
+                        pokeTypes={item.types}
+                        onHeartClick={() => this.handleHeartClick(item.id, fav)}
+                        id={item.id}
+                    />
+                </div>
             
         )
     }
