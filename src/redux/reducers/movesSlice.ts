@@ -4,6 +4,7 @@ import {getData} from "../api/getData";
 
 export interface MoveDetail extends DataMin {
     type: number
+    chance: number
     shortDescription: string
     longDescription: string
     pp: number,
