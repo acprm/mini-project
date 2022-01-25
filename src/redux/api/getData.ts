@@ -117,12 +117,17 @@ const transformData = (type: DataType, data: any) => {
             id: data.id,
             name: Move.filter(move => move.id === data.id)[0].name || data.name,
             type: getId(data.type.url) as number,
+            chance: data.effect_chance,
             shortDescription: data.effect_entries.length>0 ? data.effect_entries[0].short_effect : '-',
             longDescription: data.effect_entries.length>0 ? data.effect_entries[0].effect : '-',
             accuracy: data.accuracy,
             pp: data.pp,
             power: (data.power === null) ? 0 : data.power,
             pokemon: data.learned_by_pokemon.map((pokemon: any) => getId(pokemon.url)).filter((id: number) => id < 1000)
+        }
+        if(transformedData.chance) {           
+            transformedData.longDescription = transformedData.longDescription.replace('$effect_chance',transformedData.chance.toString())
+            transformedData.shortDescription = transformedData.shortDescription.replace('$effect_chance',transformedData.chance.toString())            
         }
 
         return transformedData
