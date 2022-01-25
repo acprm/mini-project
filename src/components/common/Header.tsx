@@ -27,7 +27,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         super(props);
 
         this.pokemonId = +this.props.match.params.id
-        console.log(this.pokemonId)
 
         // Favorites data from local storage, unparsed
         this.lsData = favorites()
@@ -39,7 +38,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         else {
             this.state = {menuOpen: false, isFavorite: false}
         }
-        console.log(this.state.isFavorite)
     }
 
     pokemonId: number
