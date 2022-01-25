@@ -12,7 +12,8 @@ import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
 import TabContainer from './TabContainer'
 import {PathParamsType} from '../type'
-
+import { appName } from '../helpers/baseContents';
+import {Type} from '../KeyWord'
 
 type Props = RouteComponentProps<PathParamsType> & {
     types: TypesState;
@@ -32,11 +33,15 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
     componentDidMount():void {
         this.callApi()
+        const idParam = this.props.match.params.id
+        document.title = `${appName} - ${Type.filter(item => item.id === +idParam)[0].name}`
     }
 
     componentDidUpdate(prevProps:Props){
         if(prevProps.match.params.id !== this.props.match.params.id){
             this.callApi()
+            const idParam = this.props.match.params.id
+            document.title = `${appName} - ${Type.filter(item => item.id === +idParam)[0].name}`
         }
     }
 

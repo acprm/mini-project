@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
+import { appName } from "../helpers/baseContents";
 
 interface FavoriteProps {
     pokemon: PokemonState,
@@ -30,6 +31,7 @@ class FavoriteContainer extends React.Component<FavoriteProps, FavoriteState> {
         if(this.state.favs.length > 0){
             this.callApi();
         }
+        document.title = `${appName} - Favorites`
     }
     
     async callApi(){

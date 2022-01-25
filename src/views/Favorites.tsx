@@ -1,11 +1,16 @@
+import React from 'react';
 import FavoriteContainer from '../containers/FavoriteContainer'
 import MainLayout from '../layouts/MainLayout'
 
-
-export default function Favorite(){
-    return(
-        <MainLayout>
-            <FavoriteContainer />
-        </MainLayout>
-    )
+ 
+class Favorite extends React.Component{
+    render() { 
+        return ( 
+            <MainLayout>
+                <FavoriteContainer />
+            </MainLayout>
+         );
+    }
 }
+ 
+export default Favorite;

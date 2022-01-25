@@ -8,10 +8,11 @@ import { fetchMoves, MovesState } from '../redux/reducers/movesSlice';
 
 import TabContainer from './TabContainer'
 import Tab from '../components/common/Tab'
-import {moveDummy, pokemonDummy} from '../helpers/dummy'
 import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
 import {PathParamsType} from '../type'
+import { appName } from '../helpers/baseContents';
+import {Move} from '../KeyWord'
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState;
@@ -34,7 +35,8 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
             await this.props.fetchMoves({id:idParam})
             await this.props.fetchPokemon({id:this.props.moves.list[0].pokemon})
         })()
-        
+        const idParam = this.props.match.params.id
+        document.title = `${appName} - ${Move.filter(item => item.id === +idParam)[0].name}`
     }
 
     renderMove(){

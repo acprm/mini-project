@@ -8,6 +8,8 @@ import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
 import {AbilitiesState, fetchAbilities} from "../redux/reducers/abilitiesSlice";
 import {RootState} from "../redux/store";
 import {connect} from "react-redux";
+import { appName } from '../helpers/baseContents';
+import {Ability} from '../KeyWord'
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -29,6 +31,8 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
             await this.props.fetchAbilities({id: abilityId})
             await this.props.fetchPokemon({id: this.props.abilities.list[0].pokemon})
         })()
+        const idParam = this.props.match.params.id
+        document.title = `${appName} - ${Ability.filter(item => item.id === +idParam)[0].name}`
     }
 
     renderAbility() {

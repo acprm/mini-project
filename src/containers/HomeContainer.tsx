@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
+import { appName } from "../helpers/baseContents";
 
 
 interface HomeProps {
@@ -30,6 +31,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
 
     componentDidMount(): void {
         this.props.fetchPokemon({id: 1, lastId: 24})
+        document.title = `${appName} - Home`
     }
 
     checkIfFavorite(id: number): boolean {

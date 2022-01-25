@@ -15,6 +15,8 @@ import Comment, {CommentProps} from '../components/comment/Comment';
 import CommentForm from '../components/comment/CommentForm';
 import PokeMoveType from '../components/common/PokeMoveType';
 import {PathParamsType} from '../type'
+import {appName} from '../helpers/baseContents'
+import {Pokemon} from '../KeyWord'
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -49,7 +51,11 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
                 this.setState({comments: JSON.parse(comments)})
             }
         })()
+        const idParam = this.props.match.params.id
+        document.title = `${appName} - ${Pokemon.filter(item => item.id === +idParam)[0].name}`
     }
+
+ 
 
     renderPokemon = () => {
         return (

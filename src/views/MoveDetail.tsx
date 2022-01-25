@@ -1,11 +1,16 @@
+import React from 'react';
 import MoveDetailContainer from '../containers/MoveDetailContainer'
 import MainLayout from '../layouts/MainLayout'
 
-
-export default function MoveDetail(){
-    return(
-        <MainLayout>
-            <MoveDetailContainer />
-        </MainLayout>
-    )
+ 
+class MoveDetail extends React.Component{
+    render() { 
+        return ( 
+            <MainLayout>
+                <MoveDetailContainer />
+            </MainLayout>
+         );
+    }
 }
+ 
+export default MoveDetail;

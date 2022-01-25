@@ -3,10 +3,15 @@ import {Link} from "react-router-dom";
 import {KeyWord} from "../KeyWord";
 import {capitalizeSingle} from "../helpers/capitalize"
 import Header, {Back} from "../components/common/Header";
+import { appName } from "../helpers/baseContents";
 
 
 class SearchContainer extends Component<any, any> {
     state = {term: ""}
+
+    componentDidMount(){
+        document.title = `${appName} - Search`
+    }
 
     handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({term: e.target.value})

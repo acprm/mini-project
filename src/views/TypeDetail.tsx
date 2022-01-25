@@ -1,11 +1,16 @@
+import React from 'react';
 import TypeDetailContainer from '../containers/TypeDetailContainer'
 import MainLayout from '../layouts/MainLayout'
 
-
-export default function TypeDetail(){
-    return(
-        <MainLayout>
-            <TypeDetailContainer />
-        </MainLayout>
-    )
+ 
+class TypeDetail extends React.Component{
+    render() { 
+        return ( 
+            <MainLayout>
+                <TypeDetailContainer />
+            </MainLayout>
+         );
+    }
 }
+ 
+export default TypeDetail;
