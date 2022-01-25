@@ -10,6 +10,7 @@ import AbilityDetail from './views/AbilityDetail'
 import TypeDetail from './views/TypeDetail'
 import SearchContainer from "./containers/SearchContainer";
 import Favorites from './views/Favorites'
+import PageNotFound from "./views/PageNotFound";
 
 class App extends React.Component {
     render() {
@@ -43,6 +44,10 @@ class App extends React.Component {
 
                         <Route exact path="/type/:id">
                             <TypeDetail/>
+                        </Route>
+
+                        <Route path="*">
+                            <PageNotFound/>
                         </Route>
                     </Switch>
                 </Router>
