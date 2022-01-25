@@ -84,7 +84,6 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
     }
 
     render() {
-        console.log(this.state.comments)
         if (this.props.pokemon.list[0]) return (
             <div className='flex flex-col gap-5'>
                 {this.renderPokemon()}
@@ -131,7 +130,7 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
                     {/* Comments */}
                     <div className={`${this.state.activeTab !== 4 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
                         <CommentForm pokemonId={+this.props.match.params.id} refreshComment={this.commentStateRefresh}/>
-                        {this.state.comments.map(({comment, name, timestamp}) => <Comment name={name} comment={comment}
+                        {this.state.comments.map(({comment, name, timestamp}) => <Comment key={`${name}-${timestamp}`} name={name} comment={comment}
                                                                                           timestamp={timestamp}/>
                         )}
                     </div>
