@@ -19,6 +19,7 @@ class SearchBox extends Component<SearchBoxProps> {
                     onChange={this.props.onChange}
                     value={this.props.term}
                     placeholder="Search here..."
+                    autoFocus={this.props.active}
                 />
                 <MdSearch
                     className={`pointer-events-none absolute top-1/2 transform -translate-y-1/2 right-6 peer-focus-within:text-main-red text-xl ${this.props.active && "text-main-red"}`}/>
