@@ -12,7 +12,6 @@ import PokeMoveType from '../components/common/PokeMoveType'
 import List from '../components/common/List'
 import TabContainer from './TabContainer'
 import {PathParamsType} from '../type'
-import { getData } from '../redux/api/getData';
 
 
 type Props = RouteComponentProps<PathParamsType> & {
@@ -32,29 +31,12 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     state = { activeTab: 1}
 
     componentDidMount():void {
-        (async() =>{
-            const idParam = +this.props.match.params.id
-            await this.props.fetchTypes({id:idParam})
-            // const arr = this.props.types.list[0].moves;
-            // const result = await getData('move',arr);
-            // arr.map(async (item)=>{
-            //     const results = await getData('move',item)
-            //     console.log(results);
-            // })
-            // console.log(result);
-            await this.props.fetchMoves({id: this.props.types.list[0].moves})
-            await this.props.fetchPokemon({id: this.props.types.list[0].pokemon})    
-        })()
+        this.callApi()
     }
 
     componentDidUpdate(prevProps:Props){
         if(prevProps.match.params.id !== this.props.match.params.id){
-            (async() =>{
-                const idParam = +this.props.match.params.id
-                await this.props.fetchTypes({id:idParam})
-                await this.props.fetchMoves({id: this.props.types.list[0].moves})
-                await this.props.fetchPokemon({id: this.props.types.list[0].pokemon})    
-            })()
+            this.callApi()
         }
     }
 
@@ -84,26 +66,37 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
             <div className='flex flex-col items-center content-center font-semibold gap-5 '>
                             <div>Offensive</div>
                             <div className='flex flex-col gap-4 items-center'>
-                                <div>2x Damage</div>
-                                {this.props.types.list[0].offensive.double.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}
+                                {this.props.types.list[0].offensive.double.length>0 && (
+                                <>
+                                    <div>2x Damage</div>
+                                    {this.props.types.list[0].offensive.double.map((item, idx)=>{
+                                        return(
+                                            <PokeMoveType id={item} key={idx} />
+                                        )
+                                    })}
+                                </>)}
 
-                                <div>1/2x Damage</div>
-                                {this.props.types.list[0].offensive.half.map((item,idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}    
+                                {this.props.types.list[0].offensive.half.length>0 && (
+                                    <>
+                                        <div>1/2x Damage</div>
+                                        {this.props.types.list[0].offensive.half.map((item,idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}    
+                                    </>
+                                )}
 
-                                <div>0 Damage</div>
-                                {this.props.types.list[0].offensive.zero.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}                                                             
+                                {this.props.types.list[0].offensive.zero.length>0 && (
+                                <>
+                                    <div>0 Damage</div>
+                                    {this.props.types.list[0].offensive.zero.map((item, idx)=>{
+                                        return(
+                                            <PokeMoveType id={item} key={idx} />
+                                        )
+                                    })}                                                             
+                                </>    
+                                )}
                             </div>
                         </div>
         )
@@ -112,28 +105,42 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     renderDefensive(){
         return(
             <div className='flex flex-col items-center content-center font-semibold gap-5 '>
+                            
                             <div>Defensive</div>
                             <div className='flex flex-col gap-4 items-center'>
-                                <div>2x Damage</div>
-                                {this.props.types.list[0].defensive.double.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}
+                                {this.props.types.list[0].defensive.double.length>0 && (
+                                    <>
+                                        <div>2x Damage</div>
+                                        {this.props.types.list[0].defensive.double.map((item, idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}
+                                    </>
+                                )}
 
-                                <div>1/2x Damage</div>
-                                {this.props.types.list[0].defensive.half.map((item,idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}    
+                                {this.props.types.list[0].defensive.half.length>0 && (
+                                    <>
+                                        <div>1/2x Damage</div>
+                                        {this.props.types.list[0].defensive.half.map((item,idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}    
+                                    </>
+                                )}
 
-                                <div>0 Damage</div>
-                                {this.props.types.list[0].defensive.zero.map((item, idx)=>{
-                                    return(
-                                        <PokeMoveType id={item} key={idx} />
-                                    )
-                                })}                                                             
+
+                                {this.props.types.list[0].defensive.zero.length>0 && (
+                                    <>
+                                        <div>0 Damage</div>
+                                        {this.props.types.list[0].defensive.zero.map((item, idx)=>{
+                                            return(
+                                                <PokeMoveType id={item} key={idx} />
+                                            )
+                                        })}                                                             
+                                    </>
+                                )}
                             </div>
                         </div>
         )
@@ -168,7 +175,6 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
     render():React.ReactNode {     
         
-        // console.log(this.props.types.list[0].moves);
         if(this.props.types.list[0]) return ( 
             <div className='flex flex-col gap-5'>
                 { this.renderType()}
@@ -181,7 +187,7 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
                     {/* dmg relation */}
                     
-                    <div className={`${this.state.activeTab !== 1 ? 'hidden' : 'inline-block'} flex justify-center gap-20 content-center overflow-y-auto`}>
+                    <div className={`${this.state.activeTab !== 1 ? 'hidden' : 'inline-block'} flex justify-center gap-5 sm:gap-20 content-center overflow-y-auto`}>
                         
                         {/* offensive */}
                         {this.renderOffensive()}
