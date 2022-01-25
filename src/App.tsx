@@ -10,7 +10,7 @@ import MoveDetail from './views/MoveDetail'
 import AbilityDetail from './views/AbilityDetail'
 import TypeDetail from './views/TypeDetail'
 import SearchContainer from "./containers/SearchContainer";
-
+import Favorites from './views/Favorites'
 
 class App extends React.Component {
     render() {
@@ -27,7 +27,7 @@ class App extends React.Component {
                         </Route>
 
                         <Route exact path="/favorites">
-                            <RouteDisplay path='Favorites'/>
+                            <Favorites/>
                         </Route>
 
                         <Route exact path="/ability/:id">
