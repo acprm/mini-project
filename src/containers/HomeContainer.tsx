@@ -12,7 +12,7 @@ interface HomeProps {
 }
 
 interface HomeState {
-    favs: Array<string>
+    favs: Array<number>
 }
 
 class HomeContainer extends React.Component<HomeProps, HomeState> {
@@ -30,15 +30,13 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
 
     componentDidMount(): void {
         this.props.fetchPokemon({id: 1, lastId: 24})
-        console.log(this.state.favs);
     }
 
-    checkIfFavorite(name: string): boolean {
-        if (this.state.favs.filter(item => name === item).length > 0) return true;
-        else return false
+    checkIfFavorite(id: number): boolean {
+        return this.state.favs.filter(item => id === item).length > 0;
     }
 
-    handleHeartClick(name: string, favorite: boolean) {
+    handleHeartClick(name: number, favorite: boolean) {
         if (!favorite) {
             const newFavs = [...this.state.favs, name]
             this.setState({favs: newFavs});
@@ -54,7 +52,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
         const pokemonList = this.props.pokemon.list;
 
         const renderPokemon = () => pokemonList && pokemonList.map((item) => {
-                const fav = this.checkIfFavorite(item.name)
+                const fav = this.checkIfFavorite(item.id)
                 return (
                     <PokemonCard
                         key={item.id}
@@ -63,7 +61,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
                         url={item.sprite}
                         favorite={fav}
                         pokeTypes={item.types}
-                        onHeartClick={() => this.handleHeartClick(item.name, fav)}
+                        onHeartClick={() => this.handleHeartClick(item.id, fav)}
                         id={item.id}
                     />
                 )
