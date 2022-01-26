@@ -41,7 +41,7 @@ const initialState: PokemonState = {
         generation: "I",
         firstId: 1,
         lastId: 151,
-        limit: 24
+        limit: 18
     },
     status: "idle"
 }
@@ -67,9 +67,80 @@ export const pokemonSlice = createSlice({
         initialState,
         reducers: {
             changeGeneration: (state, action: PayloadAction<PokemonGen>) => {
-                // TODO add switch statement based on action.payload
-                // switch (action.payload) {
-                //     case ("IV"): change gen, firstId, lastId into gen IV
+                switch (action.payload) {
+                    case "I": {
+                        state.page = {
+                            ...state.page,
+                            generation: "I",
+                            firstId: 1,
+                            lastId: 151
+                        }
+                        break
+                    }
+                    case "II": {
+                        state.page = {
+                            ...state.page,
+                            generation: "II",
+                            firstId: 152,
+                            lastId: 251
+                        }
+                        break
+                    }
+                    case "III": {
+                        state.page = {
+                            ...state.page,
+                            generation: "III",
+                            firstId: 252,
+                            lastId: 386
+                        }
+                        break
+                    }
+                    case "IV": {
+                        state.page = {
+                            ...state.page,
+                            generation: "IV",
+                            firstId: 387,
+                            lastId: 493
+                        }
+                        break
+                    }
+                    case "V": {
+                        state.page = {
+                            ...state.page,
+                            generation: "V",
+                            firstId: 494,
+                            lastId: 649
+                        }
+                        break
+                    }
+                    case "VI": {
+                        state.page = {
+                            ...state.page,
+                            generation: "VI",
+                            firstId: 650,
+                            lastId: 721
+                        }
+                        break
+                    }
+                    case "VII": {
+                        state.page = {
+                            ...state.page,
+                            generation: "VII",
+                            firstId: 722,
+                            lastId: 809
+                        }
+                        break
+                    }
+                    case "VIII": {
+                        state.page = {
+                            ...state.page,
+                            generation: "II",
+                            firstId: 810,
+                            lastId: 898
+                        }
+                        break
+                    }
+                }
             }
         },
         extraReducers: builder => {
@@ -102,5 +173,7 @@ export const pokemonSlice = createSlice({
         }
     }
 )
+
+export const {changeGeneration} = pokemonSlice.actions
 
 export default pokemonSlice.reducer
