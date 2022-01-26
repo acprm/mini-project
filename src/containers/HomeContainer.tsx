@@ -3,12 +3,13 @@ import {RootState} from '../redux/store'
 import {connect} from 'react-redux'
 import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
-import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
+import {fetchPokemon, Page, PokemonState} from "../redux/reducers/pokemonSlice";
 import { appName } from "../helpers/baseContents";
 
 
 interface HomeProps {
-    pokemon: PokemonState,
+    pokemon: PokemonState
+    page: Page
     fetchPokemon: ({id, lastId, limit}: { id: number | number[], lastId?: number, limit?: number }) => void
 }
 
@@ -30,8 +31,15 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
     }
 
     componentDidMount(): void {
-        this.props.fetchPokemon({id: 1, lastId: 24})
+        this.props.fetchPokemon({id: 1, lastId: 12})
         document.title = `${appName} - Home`
+    }
+
+    componentDidUpdate(prevProps: HomeProps) {
+        if (prevProps.page.generation !== this.props.page.generation ) {
+            const {firstId, lastId, limit} = this.props.page
+            this.props.fetchPokemon({id: firstId, lastId, limit})
+        }
     }
 
     checkIfFavorite(id: number): boolean {
@@ -84,6 +92,7 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
 
 const mapStateToProps = (state: RootState) => ({
     pokemon: state.pokemon,
+    page: state.pokemon.page
 })
 
 export default connect(mapStateToProps, {fetchPokemon})(HomeContainer);
