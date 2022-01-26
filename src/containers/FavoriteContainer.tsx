@@ -5,6 +5,7 @@ import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
 import { appName } from "../helpers/baseContents";
+import Fallback from "../components/common/Fallback";
 
 interface FavoriteProps {
     pokemon: PokemonState,
@@ -75,7 +76,8 @@ class FavoriteContainer extends React.Component<FavoriteProps, FavoriteState> {
 
 
     render() { 
-        return ( 
+        if(this.props.pokemon.status === 'loading') return <Fallback />
+        else return ( 
             <div className="flex flex-col items-center justify-center pt-5">
                 <div className="font-semibold text-4xl mb-5">Favorites</div>
                 {this.state.favs.length > 0 ? (

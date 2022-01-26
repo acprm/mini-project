@@ -3,6 +3,7 @@ import {RootState} from '../redux/store'
 import {connect} from 'react-redux'
 import {favorites} from "../helpers/local";
 import PokemonCard from '../components/pokemon/PokemonCard'
+import Fallback from "../components/common/Fallback";
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
 import { appName } from "../helpers/baseContents";
 
@@ -69,8 +70,8 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
                 )
             }
         )
-
-        return(
+        if(this.props.pokemon.status === 'loading') return <Fallback/>
+        else return(
             <div className="flex flex-col items-center justify-center pt-5">
                 <div className="font-semibold text-4xl mb-5">Pokemon</div>
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5">
