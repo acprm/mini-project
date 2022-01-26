@@ -2,37 +2,41 @@ import React, {Component} from "react";
 import {MdClose} from "react-icons/md";
 import {RootState} from "../../redux/store";
 import {connect} from "react-redux";
-import {fetchPokemon, PokemonState} from "../../redux/reducers/pokemonSlice";
+import {fetchPokemon, PokemonGen, changeGeneration, PokemonState, Page} from "../../redux/reducers/pokemonSlice";
 import {ModalsState, closeFilter} from "../../redux/reducers/modalsSlice";
 
 interface FilterModalProps {
-    pokemon: PokemonState,
+    pokemon: PokemonState
     modals: ModalsState
+    page: Page
+    changeGeneration: (generation: PokemonGen) => void
     fetchPokemon: ({id, lastId, limit}: { id: number | number[], lastId?: number, limit?: number }) => void
     closeFilter: () => void
 }
 
 class FilterModal extends Component<FilterModalProps> {
     generationList = [
-        {id: 1, name: "Generation I", firstId: 1, lastId: 151},
-        {id: 2, name: "Generation II", firstId: 152, lastId: 251},
-        {id: 3, name: "Generation III", firstId: 252, lastId: 386},
-        {id: 4, name: "Generation IV", firstId: 387, lastId: 493},
-        {id: 5, name: "Generation V", firstId: 494, lastId: 649},
-        {id: 6, name: "Generation VI", firstId: 650, lastId: 721},
-        {id: 7, name: "Generation VII", firstId: 722, lastId: 809},
-        {id: 8, name: "Generation VIII", firstId: 810, lastId: 898},
+        {id: 1, generation: "I"},
+        {id: 2, generation: "II"},
+        {id: 3, generation: "III"},
+        {id: 4, generation: "IV"},
+        {id: 5, generation: "V"},
+        {id: 6, generation: "VI"},
+        {id: 7, generation: "VII"},
+        {id: 8, generation: "VIII"},
     ]
 
-    handleClick = (firstId: number, lastId: number) => {
+    handleClick = (generation: PokemonGen) => {
+        const {firstId, lastId, limit} = this.props.page
+        this.props.changeGeneration(generation)
         this.props.closeFilter()
-        this.props.fetchPokemon({id: firstId, lastId: lastId, limit: 24})
+        // this.props.fetchPokemon({id: firstId, lastId, limit})
     }
 
     render() {
         return (
             <div className="mx-auto bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex flex-col items-center justify-center " >
+                <div className="flex flex-col items-center justify-center ">
                     <div className="flex justify-between items-end py-5 w-[25rem]">
                         <span className="font-semibold text-4xl">Filter</span>
                         <MdClose
@@ -42,14 +46,14 @@ class FilterModal extends Component<FilterModalProps> {
                     </div>
                     <div className="w-[25rem]">
                         <hr/>
-                        {this.generationList.map(({id, name, firstId, lastId}) => (
+                        {this.generationList.map(({id, generation}) => (
                             <div
                                 key={id}
                                 className="hover:bg-light-gray cursor-pointer"
-                                onClick={() => this.handleClick(firstId, lastId)}
+                                onClick={() => this.handleClick(generation as PokemonGen)}
                             >
                                 <div className="py-2">
-                                    <span className="text-md">{name}</span>
+                                    <span className="text-md">Generation {generation}</span>
                                 </div>
                                 <hr/>
                             </div>
@@ -63,7 +67,8 @@ class FilterModal extends Component<FilterModalProps> {
 
 const mapStateToProps = (state: RootState) => ({
     pokemon: state.pokemon,
+    page: state.pokemon.page,
     modals: state.modals,
 })
 
-export default connect(mapStateToProps, {fetchPokemon, closeFilter})(FilterModal);
+export default connect(mapStateToProps, {fetchPokemon, changeGeneration, closeFilter})(FilterModal);
