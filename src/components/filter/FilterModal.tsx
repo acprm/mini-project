@@ -1,16 +1,15 @@
 import React, {Component} from "react";
-import {MdClose} from "react-icons/md";
-import {RootState} from "../../redux/store";
 import {connect} from "react-redux";
-import {fetchPokemon, PokemonGen, changeGeneration, PokemonState, Page} from "../../redux/reducers/pokemonSlice";
+import {MdClose, MdCheck} from "react-icons/md";
+
+import {RootState} from "../../redux/store";
+import {PokemonGen, changeGeneration, Page} from "../../redux/reducers/pokemonSlice";
 import {ModalsState, closeFilter} from "../../redux/reducers/modalsSlice";
 
 interface FilterModalProps {
-    pokemon: PokemonState
     modals: ModalsState
     page: Page
     changeGeneration: (generation: PokemonGen) => void
-    fetchPokemon: ({id, lastId, limit}: { id: number | number[], lastId?: number, limit?: number }) => void
     closeFilter: () => void
 }
 
@@ -27,10 +26,8 @@ class FilterModal extends Component<FilterModalProps> {
     ]
 
     handleClick = (generation: PokemonGen) => {
-        const {firstId, lastId, limit} = this.props.page
         this.props.changeGeneration(generation)
         this.props.closeFilter()
-        // this.props.fetchPokemon({id: firstId, lastId, limit})
     }
 
     render() {
@@ -52,8 +49,11 @@ class FilterModal extends Component<FilterModalProps> {
                                 className="hover:bg-light-gray cursor-pointer"
                                 onClick={() => this.handleClick(generation as PokemonGen)}
                             >
-                                <div className="py-2">
-                                    <span className="text-md">Generation {generation}</span>
+                                <div className={`py-2 flex items-center justify-between text-md ${this.props.page.generation === generation && 'text-main-red font-semibold'}`}>
+                                    <span>
+                                        Generation {generation}
+                                    </span>
+                                    {this.props.page.generation === generation && <MdCheck/>}
                                 </div>
                                 <hr/>
                             </div>
@@ -66,9 +66,8 @@ class FilterModal extends Component<FilterModalProps> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    pokemon: state.pokemon,
     page: state.pokemon.page,
     modals: state.modals,
 })
 
-export default connect(mapStateToProps, {fetchPokemon, changeGeneration, closeFilter})(FilterModal);
+export default connect(mapStateToProps, {changeGeneration, closeFilter})(FilterModal);

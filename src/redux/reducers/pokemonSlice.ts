@@ -26,6 +26,7 @@ export interface Page {
     generation: PokemonGen
     firstId: number,
     lastId: number,
+    nextId: number,
     limit: number
 }
 
@@ -41,7 +42,8 @@ const initialState: PokemonState = {
         generation: "I",
         firstId: 1,
         lastId: 151,
-        limit: 18
+        limit: 18, // Change the nextId too if you change the limit
+        nextId: 19, // nextId = firstId + limit
     },
     status: "idle"
 }
@@ -66,8 +68,11 @@ export const pokemonSlice = createSlice({
         name: 'pokemon',
         initialState,
         reducers: {
-            setPokemonIdle(state){
+            setPokemonIdle(state) {
                 state.status = 'idle'
+            },
+            setNextId(state, action: PayloadAction<number>) {
+                state.page.nextId = action.payload
             },
             changeGeneration: (state, action: PayloadAction<PokemonGen>) => {
                 switch (action.payload) {
@@ -76,7 +81,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "I",
                             firstId: 1,
-                            lastId: 151
+                            lastId: 151,
+                            nextId: state.page.limit + 1
                         }
                         break
                     }
@@ -85,7 +91,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "II",
                             firstId: 152,
-                            lastId: 251
+                            lastId: 251,
+                            nextId: state.page.limit + 152
                         }
                         break
                     }
@@ -94,7 +101,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "III",
                             firstId: 252,
-                            lastId: 386
+                            lastId: 386,
+                            nextId: state.page.limit + 252
                         }
                         break
                     }
@@ -103,7 +111,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "IV",
                             firstId: 387,
-                            lastId: 493
+                            lastId: 493,
+                            nextId: state.page.limit + 387
                         }
                         break
                     }
@@ -112,7 +121,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "V",
                             firstId: 494,
-                            lastId: 649
+                            lastId: 649,
+                            nextId: state.page.limit + 494
                         }
                         break
                     }
@@ -121,7 +131,8 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "VI",
                             firstId: 650,
-                            lastId: 721
+                            lastId: 721,
+                            nextId: state.page.limit + 650
                         }
                         break
                     }
@@ -130,16 +141,18 @@ export const pokemonSlice = createSlice({
                             ...state.page,
                             generation: "VII",
                             firstId: 722,
-                            lastId: 809
+                            lastId: 809,
+                            nextId: state.page.limit + 722
                         }
                         break
                     }
                     case "VIII": {
                         state.page = {
                             ...state.page,
-                            generation: "II",
+                            generation: "VIII",
                             firstId: 810,
-                            lastId: 898
+                            lastId: 898,
+                            nextId: state.page.limit + 810
                         }
                         break
                     }
@@ -177,5 +190,5 @@ export const pokemonSlice = createSlice({
     }
 )
 
-export const {changeGeneration, setPokemonIdle} = pokemonSlice.actions
+export const {changeGeneration, setPokemonIdle, setNextId} = pokemonSlice.actions
 export default pokemonSlice.reducer

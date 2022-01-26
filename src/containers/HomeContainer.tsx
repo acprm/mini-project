@@ -6,6 +6,7 @@ import PokemonCard from '../components/pokemon/PokemonCard'
 import Fallback from "../components/common/Fallback";
 import {fetchPokemon, Page, PokemonState} from "../redux/reducers/pokemonSlice";
 import { appName } from "../helpers/baseContents";
+import ViewMoreButton from "../components/ViewMoreButton";
 
 
 interface HomeProps {
@@ -32,15 +33,20 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
     }
 
     componentDidMount(): void {
-        this.props.fetchPokemon({id: 1, lastId: 12})
+        this.fetchPokemonData()
         document.title = `${appName} - Home`
     }
 
     componentDidUpdate(prevProps: HomeProps) {
         if (prevProps.page.generation !== this.props.page.generation ) {
-            const {firstId, lastId, limit} = this.props.page
-            this.props.fetchPokemon({id: firstId, lastId, limit})
+            this.fetchPokemonData()
         }
+    }
+
+    fetchPokemonData = () => {
+        const {firstId, limit} = this.props.page
+        const lastId = firstId + limit - 1
+        this.props.fetchPokemon({id: firstId, lastId})
     }
 
     checkIfFavorite(id: number): boolean {
@@ -81,10 +87,14 @@ class HomeContainer extends React.Component<HomeProps, HomeState> {
         if(this.props.pokemon.status === 'loading') return <Fallback/>
         else return(
             <div className="flex flex-col items-center justify-center pt-5">
-                <div className="font-semibold text-4xl mb-5">Pokemon</div>
+                <div className="font-semibold text-center text-4xl mb-5">
+                    Pokemon <br/>
+                    <span className="font-light italic text-dark-gray text-2xl">Generation {this.props.page.generation}</span>
+                </div>
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5">
                     {renderPokemon()}
                 </div>
+                <ViewMoreButton/>
             </div>
         )
     }
