@@ -8,6 +8,7 @@ module.exports = {
       backgroundImage: {
         'pokeball': "url('/pokeball.svg')",
         'pokeball-full': "url('/pokeball-full.svg')",
+        'pokeball-full-lg': "url('/pokeball-full-lg.svg')"
       },
       fontSize:{
         xxs: '.5625rem'

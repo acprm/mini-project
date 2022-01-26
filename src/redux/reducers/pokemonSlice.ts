@@ -66,6 +66,9 @@ export const pokemonSlice = createSlice({
         name: 'pokemon',
         initialState,
         reducers: {
+            setPokemonIdle(state){
+                state.status = 'idle'
+            },
             changeGeneration: (state, action: PayloadAction<PokemonGen>) => {
                 switch (action.payload) {
                     case "I": {
@@ -174,6 +177,5 @@ export const pokemonSlice = createSlice({
     }
 )
 
-export const {changeGeneration} = pokemonSlice.actions
-
+export const {changeGeneration, setPokemonIdle} = pokemonSlice.actions
 export default pokemonSlice.reducer

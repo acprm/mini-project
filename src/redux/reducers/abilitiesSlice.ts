@@ -30,7 +30,11 @@ export const fetchAbilities = createAsyncThunk(
 export const abilitiesSlice = createSlice({
         name: 'abilities',
         initialState,
-        reducers: {},
+        reducers: {
+            setAbilitiesIdle(state){
+                state.status = 'idle'
+            }
+        },
         extraReducers: builder => {
             builder
                 .addCase(fetchAbilities.pending, (state) => {
@@ -50,5 +54,5 @@ export const abilitiesSlice = createSlice({
         }
     }
 )
-
+export const {setAbilitiesIdle} = abilitiesSlice.actions;
 export default abilitiesSlice.reducer
