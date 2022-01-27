@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, RouteComponentProps} from 'react-router';
+import {RouteComponentProps, withRouter} from 'react-router';
 import {connect} from 'react-redux'
 import {RootState} from '../redux/store'
 import {Redirect} from 'react-router-dom';
@@ -14,8 +14,8 @@ import List from '../components/common/List'
 import TabContainer from './TabContainer'
 import {PathParamsType} from '../type'
 import {appName} from '../helpers/baseContents';
-import {Type} from '../KeyWord'
 import Fallback from '../components/common/Fallback';
+import NoData from "../components/common/NoData";
 
 
 type Props = RouteComponentProps<PathParamsType> & {
@@ -36,17 +36,13 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
 
 
     componentDidMount(): void {
-        const title = Type.filter(item => item.id === +this.props.match.params.id);
         this.callApi()
-        const idParam = this.props.match.params.id
         document.title = `${appName} - Type`
     }
 
     componentDidUpdate(prevProps: Props) {
         if (prevProps.match.params.id !== this.props.match.params.id) {
             this.callApi()
-            const idParam = this.props.match.params.id
-            const title = Type.filter(item => item.id === +this.props.match.params.id);
         }
     }
 
@@ -158,6 +154,7 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     }
 
     renderPokemon() {
+        if (this.props.pokemon.list.length === 0) return <NoData/>
         return this.props.pokemon.list && this.props.pokemon.list.map((item) =>
             (
                 <div key={item.id}>
@@ -169,6 +166,7 @@ class TypeDetailContainer extends React.Component<Props, TypeDetailState> {
     }
 
     renderMoves() {
+        if (this.props.moves.list.length === 0) return <NoData/>
         return this.props.moves.list && this.props.moves.list.map((item) =>
             (
                 <div key={item.id}>

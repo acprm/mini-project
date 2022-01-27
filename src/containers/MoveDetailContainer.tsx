@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, RouteComponentProps} from 'react-router';
+import {RouteComponentProps, withRouter} from 'react-router';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {RootState} from '../redux/store';
@@ -15,6 +15,7 @@ import Fallback from '../components/common/Fallback'
 
 import {PathParamsType} from '../type'
 import {appName} from '../helpers/baseContents';
+import NoData from "../components/common/NoData";
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState;
@@ -93,7 +94,8 @@ class MoveDetailContainer extends React.Component<Props, MoveDetailState> {
     }
 
     renderPokemon() {
-        return this.props.pokemon.list && this.props.pokemon.list.map((item) =>
+        if (this.props.pokemon.list.length === 0) return <NoData/>
+        else return this.props.pokemon.list && this.props.pokemon.list.map((item) =>
             (
                 <div key={item.id}>
                     <hr className='my-4'/>

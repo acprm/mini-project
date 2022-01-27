@@ -7,14 +7,15 @@ import List from '../components/common/List'
 import Fallback from '../components/common/Fallback';
 
 import {RouteComponentProps, withRouter} from 'react-router';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import {fetchPokemon, PokemonState} from "../redux/reducers/pokemonSlice";
 import {AbilitiesState, fetchAbilities} from "../redux/reducers/abilitiesSlice";
 import {RootState} from "../redux/store";
 import {connect} from "react-redux";
-import { appName } from '../helpers/baseContents';
+import {appName} from '../helpers/baseContents';
 import {PathParamsType} from '../type'
+import NoData from "../components/common/NoData";
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -35,13 +36,13 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
         document.title = `${appName} - Ability`
     }
 
-    componentDidUpdate(prevProps:Props){
-        if(prevProps.match.params.id !== this.props.match.params.id){
+    componentDidUpdate(prevProps: Props) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
             this.callApi()
         }
     }
 
-    async callApi(){
+    async callApi() {
         const abilityId = +this.props.match.params.id
         await this.props.fetchAbilities({id: abilityId})
         await this.props.fetchPokemon({id: this.props.abilities.list[0].pokemon})
@@ -59,14 +60,30 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
         )
     }
 
+    renderPokemon() {
+        if (this.props.pokemon.list.length === 0) return <NoData/>
+        else return (
+            this.props.pokemon.list && this.props.pokemon.list.map((item, idx) =>
+                (
+                    <div key={idx}>
+                        <hr className='my-4'/>
+                        <List item={item.name} types={item.types} imgUrl={item.sprite} category='pokemon'
+                              id={item.id}/>
+                    </div>
+                )
+            )
+        )
+    }
+
 
     handleOnTabClick(e: number) {
         this.setState({activeTab: e})
     }
 
     render() {
-        if(this.props.abilities.status === 'loading') { return <Fallback/>}
-        else if(this.props.abilities.status === 'failed') return <Redirect to='/404' />
+        if (this.props.abilities.status === 'loading') {
+            return <Fallback/>
+        } else if (this.props.abilities.status === 'failed') return <Redirect to='/404'/>
         else if (this.props.abilities.list[0]) return (
             <div className='flex flex-col gap-5'>
                 {this.renderAbility()}
@@ -89,15 +106,7 @@ class AbilityDetailContainer extends React.Component<Props, AbilityDetailState> 
 
                     {/* Pokemons */}
                     <div className={`${this.state.activeTab !== 2 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
-                        {this.props.pokemon.list && this.props.pokemon.list.map((item, idx) =>
-                            (
-                                <div key={idx}>
-                                    <hr className='my-4'/>
-                                    <List item={item.name} types={item.types} imgUrl={item.sprite} category='pokemon'
-                                          id={item.id}/>
-                                </div>
-                            )
-                        )}
+                        {this.renderPokemon()}
                     </div>
                 </TabContainer>
             </div>
