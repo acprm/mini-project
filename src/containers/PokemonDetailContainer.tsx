@@ -18,6 +18,7 @@ import PokeMoveType from '../components/common/PokeMoveType';
 import {PathParamsType} from '../type'
 import {appName} from '../helpers/baseContents'
 import Fallback from '../components/common/Fallback';
+import NoData from "../components/common/NoData";
 
 type Props = RouteComponentProps<PathParamsType> & {
     pokemon: PokemonState,
@@ -87,6 +88,44 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
         )
     }
 
+    renderMoves = () => {
+        if (this.props.moves.list.length === 0) return <NoData/>
+        else return (
+            this.props.moves.list && this.props.moves.list.map((item, idx) =>
+                (
+                    <div key={idx}>
+                        <hr className='my-4'/>
+                        <List item={item.name} types={[item.type]} id={item.id} category='move'/>
+                    </div>
+                )
+            )
+        )
+    }
+
+    renderAbilities = () => {
+        if (this.props.abilities.list.length === 0) return <NoData/>
+        else return (
+            this.props.abilities.list && this.props.abilities.list.map((item) =>
+                (
+                    <div key={item.id}>
+                        <hr className='my-4'/>
+                        <List item={item.name} id={item.id} category='ability'/>
+                    </div>
+                )
+            )
+        )
+    }
+
+    renderComments = () => {
+        if (this.state.comments.length === 0) return <NoData/>
+        else return (
+            this.state.comments.reverse().map(({comment, name, timestamp}) => <Comment
+                key={`${name}-${timestamp}`} name={name} comment={comment}
+                timestamp={timestamp}/>
+            )
+        )
+    }
+
     handleOnTabClick = (e: number) => {
         this.setState({activeTab: e})
     }
@@ -120,37 +159,19 @@ class PokemonDetailContainer extends React.Component<Props, PokemonDetailState> 
 
                     {/* Moves */}
                     <div className={`${this.state.activeTab !== 2 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
-                        {this.props.moves.list && this.props.moves.list.map((item, idx) =>
-                            (
-                                <div key={idx}>
-                                    <hr className='my-4'/>
-                                    <List item={item.name} types={[item.type]} id={item.id} category='move'/>
-                                </div>
-                            )
-                        )}
+                        {this.renderMoves()}
                     </div>
 
                     {/* Abilities */}
                     <div className={`${this.state.activeTab !== 3 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
-                        {this.props.abilities.list && this.props.abilities.list.map((item) =>
-                            (
-                                <div key={item.id}>
-                                    <hr className='my-4'/>
-                                    <List item={item.name} id={item.id} category='ability'/>
-                                </div>
-                            )
-                        )}
+                        {this.renderAbilities()}
                     </div>
 
                     {/* Comments */}
                     <div className={`${this.state.activeTab !== 4 ? 'hidden' : 'inline-block'} overflow-y-auto `}>
                         <CommentForm pokemonId={+this.props.match.params.id} refreshComment={this.commentStateRefresh}/>
-                        {this.state.comments.reverse().map(({comment, name, timestamp}) => <Comment
-                            key={`${name}-${timestamp}`} name={name} comment={comment}
-                            timestamp={timestamp}/>
-                        )}
+                        {this.renderComments()}
                     </div>
-
                 </TabContainer>
             </div>
         )
